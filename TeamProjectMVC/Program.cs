@@ -5,6 +5,7 @@ using TeamProjectMVC.Entity;
 using TeamProjectMVC.Repository.Impl;
 using TeamProjectMVC.Repository;
 using System.Reflection;
+using TeamProjectMVC.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<AuditMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

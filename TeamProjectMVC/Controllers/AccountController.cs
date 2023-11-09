@@ -46,17 +46,15 @@ namespace TeamProjectMVC.Controllers
                 }
             }
 
-            // Validate password
-            if (!ModelState.IsValid)
+            // Validate the password.
+            if (!ValidatePassword(loginViewModel.Password))
             {
-                var passwordError = ModelState["Password"].Errors.FirstOrDefault();
-                if (passwordError != null)
-                {
-                    TempData["Error"] = passwordError.ErrorMessage;
-                    return View(loginViewModel);
-                }
+                // The password is invalid.
+                TempData["Error"] = "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                return View(loginViewModel);
             }
 
+           
             // Check if user exists
             var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
             if (user == null)
@@ -143,5 +141,60 @@ namespace TeamProjectMVC.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+
+
+        // VALIDATE PASSWORD
+        public bool ValidatePassword(string password)
+        {
+            // Check if the password is null or empty.
+            if (string.IsNullOrEmpty(password))
+            {
+                return
+
+        false;
+            }
+
+            // Check if the password is at least 8 characters long.
+
+
+            if (password.Length < 8)
+            {
+                return
+
+        false;
+            }
+
+            // Check if the password contains at least one uppercase letter.
+            if (!password.Any(char.IsUpper))
+            {
+                return false;
+            }
+
+            // Check if the password contains at least one lowercase letter.
+            if (!password.Any(char.IsLower))
+            {
+                return false;
+            }
+
+            // Check if the password contains at least one digit.
+            if (!password.Any(char.IsDigit))
+            {
+                return false;
+            }
+
+            // Check if the password contains at least one special character.
+            if (!password.Any(char.IsPunctuation))
+            {
+                return false;
+            }
+
+            // The password is valid.
+            return true;
+        }
+
+
+
+
+
     }
 }

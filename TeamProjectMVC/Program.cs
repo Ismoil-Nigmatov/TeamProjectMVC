@@ -39,6 +39,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+using (var onescope = app.Services.CreateScope())
+{ 
+    var host = app;
+    await Seed.SeedUsersAndRolesAsync(host);
+}
+
 
 if (!app.Environment.IsDevelopment())
 {
@@ -55,7 +61,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
 

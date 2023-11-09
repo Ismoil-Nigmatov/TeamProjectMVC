@@ -31,36 +31,55 @@ namespace TeamProjectMVC.Controllers
             return View(response);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            if (!ModelState.IsValid) return View(loginViewModel);
-
-            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
-            if (user != null)
+            // Validate email
+            if (!ModelState.IsValid)
             {
-                //User is found, check password
-                var passwordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
-                if (passwordCheck)
+                var emailError = ModelState["Email"].Errors.FirstOrDefault();
+                if (emailError != null)
                 {
-
-                    var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    TempData["Error"] = emailError.ErrorMessage;
+                    return View(loginViewModel);
                 }
-                //Password is incorrect 
-                TempData["Error"] = "Wrong credentials.";
+            }
+
+            // Validate password
+            if (!ModelState.IsValid)
+            {
+                var passwordError = ModelState["Password"].Errors.FirstOrDefault();
+                if (passwordError != null)
+                {
+                    TempData["Error"] = passwordError.ErrorMessage;
+                    return View(loginViewModel);
+                }
+            }
+
+            // Check if user exists
+            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+            if (user == null)
+            {
+                TempData["Error"] = "User not found.";
                 return View(loginViewModel);
             }
 
-            // User not found
-            TempData["Error"] = "Wrong Credentials";
-            return View(loginViewModel);
+            // Check if password is correct
+            var passwordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
+            if (!passwordCheck)
+            {
+                TempData["Error"] = "Password is incorrect.";
+                return View(loginViewModel);
+            }
 
-
+            // Login is successful
+            await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+            return RedirectToAction("Index", "Home");
         }
+
+
+
 
         [HttpGet]
         public IActionResult Register()
@@ -73,8 +92,23 @@ namespace TeamProjectMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            // Validate the model
+            if (!ModelState.IsValid)
+            {
+                // Get all ModelState errors
+                var errors = ModelState.Values.SelectMany(v => v.Errors).ToList();
 
+                // Add all ModelState errors to TempData
+                foreach (var error in errors)
+                {
+                    TempData["Error"] = error.ErrorMessage;
+                }
+
+                // Return to the register view
+                return View(model);
+            }
+
+            // Check if the email address is already in use
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
@@ -82,20 +116,25 @@ namespace TeamProjectMVC.Controllers
                 return View(model);
             }
 
+            // Create a new user
             var newUser = new User()
             {
-
                 Email = model.Email,
-                UserName = model.Username,
-
+                UserName = model.Username
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
+            if (!newUserResponse.Succeeded)
+            {
+                TempData["Error"] = "An error occurred while creating the new user.";
+                return View(model);
+            }
 
-            if (newUserResponse.Succeeded)
-                await _userManager.AddToRoleAsync(newUser, (ERole.USER).ToString());
+            // Add the new user to the User role
+            await _userManager.AddToRoleAsync(newUser, (ERole.USER).ToString());
+
+            // Redirect the user to the home page
             return RedirectToAction("Index", "Home");
         }
-
 
 
         [HttpGet]

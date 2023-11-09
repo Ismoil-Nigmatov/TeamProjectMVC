@@ -4,32 +4,21 @@ namespace TeamProjectMVC.Models.RegisterViewModel
 {
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Username is required")]
+       
+        public string Username  { get; set; }
 
-        [Display(Name = "Username")]
-        [Required(ErrorMessage = "Usernameis required")]
-        [StringLength(12, MinimumLength = 6)]
-        public string Username { get; set; }
-
-
-        [Display(Name = "Email")]
-        [Required(ErrorMessage = "Email address is required")]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email  is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
 
-
-        [Required]
-        [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
+        [Required(ErrorMessage = "Password is required")]
+    
         public string Password { get; set; }
 
-
-        [Display(Name = "Confirm password")]
-        [Required(ErrorMessage = "Confirm password is required")]
+       
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Password do not match")]
+        [Compare("Password", ErrorMessage = "Password  do not match")]
         public string ConfirmPassword { get; set; }
-
-
-
     }
 }

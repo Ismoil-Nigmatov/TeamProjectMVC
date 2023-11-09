@@ -39,6 +39,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+using (var onescope = app.Services.CreateScope())
+{ 
+    var host = app;
+    await Seed.SeedUsersAndRolesAsync(host);
+}
+
 
 if (!app.Environment.IsDevelopment())
 {

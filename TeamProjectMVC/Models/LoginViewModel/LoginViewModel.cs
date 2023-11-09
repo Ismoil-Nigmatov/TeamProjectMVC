@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TeamProject.Entity.LoginViewModel
+namespace TeamProjectMVC.Models.LoginViewModel
 {
     public class LoginViewModel
     {
 
 
-        [Required(ErrorMessage ="Email address is required")]
+        [Required(ErrorMessage = "Email address is required")]
         [EmailAddress]
-        [Display(Name ="Email Address")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]

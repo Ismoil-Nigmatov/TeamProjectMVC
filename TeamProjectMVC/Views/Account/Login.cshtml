@@ -1,5 +1,7 @@
 ﻿
-@*@using TeamProjectMVC
+@using TeamProjectMVC.Entity;
+
+@model TeamProjectMVC.Models.LoginViewModel.LoginViewModel;
 
 @{
     Layout = null;
@@ -146,13 +148,13 @@
             <div class="textbox">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control">
+                <input type="email" asp-for="Email" class="form-control" autocomplete="off"  />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="textbox">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" autocomplete="off"  type="password"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <button asp-controller="Account" asp-action="Login" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
@@ -161,7 +163,7 @@
             <p class="registerLink">Do not have an account ?  <a asp-controller="Account" asp-action="Register">Register here</a></p>
         </div>
     </form>
-</body>*@
+</body>
 
 
 

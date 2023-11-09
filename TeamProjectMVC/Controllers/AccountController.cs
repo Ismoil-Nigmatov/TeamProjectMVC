@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TeamProject.Entity.LoginViewModel;
-using TeamProject.Entity.RegisterViewModel;
 using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Entity.Enums;
+using TeamProjectMVC.Models.LoginViewModel;
+using TeamProjectMVC.Models.RegisterViewModel;
 
 namespace TeamProjectMVC.Controllers
 {

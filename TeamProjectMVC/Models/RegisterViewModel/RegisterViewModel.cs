@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TeamProject.Entity.RegisterViewModel
+namespace TeamProjectMVC.Models.RegisterViewModel
 {
     public class RegisterViewModel
     {

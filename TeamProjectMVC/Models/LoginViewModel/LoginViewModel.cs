@@ -4,17 +4,13 @@ namespace TeamProjectMVC.Models.LoginViewModel
 {
     public class LoginViewModel
     {
-
-
-        [Required(ErrorMessage = "Email address is required")]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        
+     
         public string Email { get; set; }
 
-        [Required]
+        
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "The password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 digit, and 1 special character.")]
         public string Password { get; set; }
-
     }
 }

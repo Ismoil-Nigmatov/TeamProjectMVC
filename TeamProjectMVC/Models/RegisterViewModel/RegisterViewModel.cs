@@ -11,7 +11,7 @@ namespace TeamProjectMVC.Models.RegisterViewModel
         public string Username { get; set; }
 
 
-        [Display(Name = "Email address")]
+        [Display(Name = "Email")]
         [Required(ErrorMessage = "Email address is required")]
         [EmailAddress]
         public string Email { get; set; }

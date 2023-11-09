@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Text;
 using TeamProjectMVC.Entity.Enums;
 using TeamProjectMVC.Entity;
 
@@ -7,10 +6,7 @@ namespace TeamProjectMVC.Data
 {
     public class Seed
     {
-
-
-
-        public static async System.Threading.Tasks.Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {

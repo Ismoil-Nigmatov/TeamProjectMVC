@@ -157,24 +157,24 @@
                 <i class="fa fa-user" aria-hidden="true"></i>
                 
                 <input asp-for="Username" type="text" id="form1-username" autocomplete="off" placeholder="Username">
-                <span asp-validation-for="Username" class="text-danger"></span>
+              
             </div>
             <div class="textbox">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               
                 <input asp-for="Email" class="form-control" autocomplete="off" placeholder="Email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+               
             </div>
             <div class="textbox">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                
                 <input asp-for="Password" type="password" id="form2-password" autocomplete="off" placeholder="Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+               
             </div>   <div class="textbox">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                
                 <input asp-for="ConfirmPassword" type="password" id="form2-password" autocomplete="off" placeholder="Confirm Password" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+               
             </div>
             <button asp-controller="Account" asp-action="Register" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
                 <i class="fa fa-sign-in mr-1"></i>  &nbsp; Register

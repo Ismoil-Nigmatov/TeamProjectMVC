@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Entity.Enums;
@@ -90,19 +91,42 @@ namespace TeamProjectMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            // Validate the model
+            // Validate the username
+            if (string.IsNullOrEmpty(model.Username))
+            {
+                TempData["Error"] = "Username is required";
+            }
+            else if (model.Username.Length < 6)
+            {
+                TempData["Error"] = "Username must be at least 6 characters long";
+            }
+
+            // Validate the email
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                TempData["Error"] = "Email is required";
+            }
+            else if (!Regex.IsMatch(model.Email, @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$"))
+            {
+                TempData["Error"] = "Email is invalid";
+            }
+
+            // Validate the password
+            if (!ValidatePassword(model.Password))
+            {
+                TempData["Error"] = "Password must be at least 8 characters long, contain at least one uppercase letter," +
+                    " one lowercase letter, one digit, and one special character.";
+            }
+
+            // Validate the confirm password
+            if (model.Password != model.ConfirmPassword)
+            {
+                TempData["Error"] = "Confirm password does not match password";
+            }
+
+            // If the model is invalid, return the register view
             if (!ModelState.IsValid)
             {
-                // Get all ModelState errors
-                var errors = ModelState.Values.SelectMany(v => v.Errors).ToList();
-
-                // Add all ModelState errors to TempData
-                foreach (var error in errors)
-                {
-                    TempData["Error"] = error.ErrorMessage;
-                }
-
-                // Return to the register view
                 return View(model);
             }
 
@@ -123,7 +147,7 @@ namespace TeamProjectMVC.Controllers
             var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
             if (!newUserResponse.Succeeded)
             {
-                TempData["Error"] = "An error occurred while creating the new user.";
+               TempData["Error"] = "An error occurred while creating the new user.";
                 return View(model);
             }
 

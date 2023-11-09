@@ -4,13 +4,13 @@ using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Repository.Impl;
 using TeamProjectMVC.Repository;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IAuditRepository, AuditRepository>();
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(builder.Environment.ContentRootPath)

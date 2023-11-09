@@ -1,0 +1,81 @@
+﻿@model List<TeamProjectMVC.Entity.Product>
+@{
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            background: #1B274E;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            height: 90vh;
+            width: 90vw;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        .main div{
+            width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #6a6a6a;
+            overflow: hidden;
+            padding: 20px;
+                background: #1e2a54;
+            }
+        .main div table{
+            color: white;
+            width: 100%;
+            margin-top: 50px;
+            height: 100%;
+        }
+        .main div table thead{ 
+            font-size: 27px;
+            font-family: fangsong;
+        }
+
+       .main div table tbody {
+            
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Quantiy
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+            </thead>
+            <tbody class="p-4 ">
+            @foreach (var iteam in Model)
+            {
+                <tr>
+                    <td>@iteam.Id</td>
+                    <td>@iteam.Name</td>
+                    <td>@iteam.Quantity</td>
+                    <td>@iteam.Price</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>

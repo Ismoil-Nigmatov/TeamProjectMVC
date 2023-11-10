@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Models.LoginViewModel;
 using TeamProjectMVC.Models.RegisterViewModel;
-using TeamProjectMVC.Service;
+using TeamProjectMVC.Services;
 
 namespace TeamProjectMVC.Controllers
 {

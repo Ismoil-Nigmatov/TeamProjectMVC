@@ -9,11 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TeamProjectMVC.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:TeamProjectMVC/Migrations/20231110101747_Second.cs
-    public partial class Second : Migration
-========
     public partial class Init : Migration
->>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3:TeamProjectMVC/Migrations/20231110101028_Init.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,12 +57,13 @@ namespace TeamProjectMVC.Migrations
                 name: "AuditLogs",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     TableName = table.Column<string>(type: "text", nullable: false),
                     DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    OldValues = table.Column<string>(type: "text", nullable: false),
                     NewValues = table.Column<string>(type: "text", nullable: false),
                     AffectedColumns = table.Column<string>(type: "text", nullable: false),
                     PrimaryKey = table.Column<string>(type: "text", nullable: false)
@@ -202,13 +199,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:TeamProjectMVC/Migrations/20231110101747_Second.cs
-                    { "32f97ce1-4a24-4832-834a-1f30216366a9", null, "ADMIN", "ADMIN" },
-                    { "ad511c07-da42-4b85-b0a2-4170c61c1434", null, "USER", "USER" }
-========
-                    { "58272131-ae6a-4afe-86aa-7584a0d3ae90", null, "USER", "USER" },
-                    { "ceb41a28-a78b-471c-af2b-7b2f087a3d9f", null, "ADMIN", "ADMIN" }
->>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3:TeamProjectMVC/Migrations/20231110101028_Init.cs
+                    { "3303c4e1-493d-4e61-9137-c6f726b4ba8a", null, "USER", "USER" },
+                    { "8cc7b53a-3e11-47ad-8506-3ee2e3effc43", null, "ADMIN", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

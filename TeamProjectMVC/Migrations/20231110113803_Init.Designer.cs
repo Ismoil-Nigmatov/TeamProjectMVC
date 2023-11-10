@@ -12,13 +12,8 @@ using TeamProjectMVC.Data;
 namespace TeamProjectMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:TeamProjectMVC/Migrations/20231110101747_Second.Designer.cs
-    [Migration("20231110101747_Second")]
-    partial class Second
-========
-    [Migration("20231110101028_Init")]
+    [Migration("20231110113803_Init")]
     partial class Init
->>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3:TeamProjectMVC/Migrations/20231110101028_Init.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,21 +53,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:TeamProjectMVC/Migrations/20231110101747_Second.Designer.cs
-                            Id = "32f97ce1-4a24-4832-834a-1f30216366a9",
-========
-                            Id = "ceb41a28-a78b-471c-af2b-7b2f087a3d9f",
->>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3:TeamProjectMVC/Migrations/20231110101028_Init.Designer.cs
+                            Id = "8cc7b53a-3e11-47ad-8506-3ee2e3effc43",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-<<<<<<<< HEAD:TeamProjectMVC/Migrations/20231110101747_Second.Designer.cs
-                            Id = "ad511c07-da42-4b85-b0a2-4170c61c1434",
-========
-                            Id = "58272131-ae6a-4afe-86aa-7584a0d3ae90",
->>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3:TeamProjectMVC/Migrations/20231110101028_Init.Designer.cs
+                            Id = "3303c4e1-493d-4e61-9137-c6f726b4ba8a",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -272,8 +259,11 @@ namespace TeamProjectMVC.Migrations
 
             modelBuilder.Entity("TeamProjectMVC.Models.Audit", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AffectedColumns")
                         .IsRequired()
@@ -287,6 +277,7 @@ namespace TeamProjectMVC.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("OldValues")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PrimaryKey")

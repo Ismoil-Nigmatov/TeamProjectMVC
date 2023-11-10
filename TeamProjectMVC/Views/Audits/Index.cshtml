@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TeamProjectMVC.Models.Audit>
+
+<h1>Audit Logs</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead class="thead-success">
+                    <tr>
+                        <th>Id</th>
+                        @*<th>UserId</th>*@
+                        <th>Type</th>
+                        <th>Table Name</th>
+                        <th>Date Time</th>
+                        <th>Old values</th>
+                        <th> New Values</th>
+                        <th>Affected Columns</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Id) </td>
+                            @*<td> @Html.DisplayFor(modelItem => item.UserId)</td>*@
+                            <td> @Html.DisplayFor(modelItem => item.Type)</td>
+                            <td> @Html.DisplayFor(modelItem => item.TableName)</td>
+                            <td> @Html.DisplayFor(modelItem => item.DateTime)</td>
+                            <td> @Html.DisplayFor(modelItem => item.OldValues)</td>
+                            <td> @Html.DisplayFor(modelItem => item.NewValues)</td>
+                            <td> @Html.DisplayFor(modelItem => item.AffectedColumns)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div> 

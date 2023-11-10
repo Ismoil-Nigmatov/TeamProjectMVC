@@ -4,5 +4,6 @@ namespace TeamProjectMVC.Entity
 {
     public class User : IdentityUser
     {
+       
     }
 }

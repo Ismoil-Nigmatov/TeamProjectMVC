@@ -50,13 +50,21 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<< HEAD
+                            Id = "32f97ce1-4a24-4832-834a-1f30216366a9",
+=======
                             Id = "ceb41a28-a78b-471c-af2b-7b2f087a3d9f",
+>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
+<<<<<<< HEAD
+                            Id = "ad511c07-da42-4b85-b0a2-4170c61c1434",
+=======
                             Id = "58272131-ae6a-4afe-86aa-7584a0d3ae90",
+>>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -168,44 +176,10 @@ namespace TeamProjectMVC.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TeamProjectMVC.Entity.AuditLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Action")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ResponseStatusCode")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("ResponseTimestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditLogs");
-                });
-
             modelBuilder.Entity("TeamProjectMVC.Entity.Product", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -286,6 +260,46 @@ namespace TeamProjectMVC.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("TeamProjectMVC.Models.Audit", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AffectedColumns")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NewValues")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PrimaryKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

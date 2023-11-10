@@ -43,7 +43,7 @@ namespace TeamProjectMVC.Data
                 {
                     var newAppUser = new User()
                     {
-                        UserName = "app-user",
+                        UserName ="app-user",
                         Email = appUserEmail,
                         EmailConfirmed = true,
 

@@ -158,7 +158,13 @@
 <body>
     <div class="main">
         <div class="container">
-        @if (@Model.Role != "USER")
+            @if (TempData["Error"] != null)
+            {
+                <p class="col-md-12 btn btn-danger" style="color:red;">
+                    <span><b>Sorry!</b> - @TempData["Error"]</span>
+                </p>
+            }
+            @if (@Model.Role != "USER")
             {
                 <button style="height: 38px" type="button" class="btn btn-warning" id="btn-add">Add Product</button>
                 <div id="modalAdd">
@@ -170,15 +176,15 @@
                         <div class="modal-body">
                             <input type="hidden" name="userId" value="@Model.Id"/>
                             <input type="hidden" name="role" value="@Model.Role"/>
-                            <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3"/>
-                            <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3"/>
-                            <input type="number" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" step="any" pattern="\d+(\.\d+)?" title="Enter a valid number" />
+                            <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required/>
+                            <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" required/>
+                            <input value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" pattern="^\d+(\.\d+)?$" title="Enter a valid integer or double" required/>
                         </div>
                         <div class="moda-footer">
                             <button type="submit" class="w-100 btn btn-outline-warning">Add</button>
                         </div>
                     </form>
-            </div>
+                </div>
             }
             <form style="overflow-y: scroll;" class="h-100" action="@Url.Action("Product", "Product")">
                 <table class="table">
@@ -234,7 +240,7 @@
                                                 <input type="hidden" name="id" value="@iteam.Id"/>
                                                 <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3"/>
                                                 <input type="number"value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3"/>
-                                                <input type="number" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" step="any" pattern="\d+(\.\d+)?" title="Enter a valid number" />
+                                                <input value="@iteam.Price" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" required/>
                                             </div>
                                             <div class="moda-footer">
                                                 <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
@@ -303,6 +309,27 @@
     addBtn.addEventListener("click", function () {
         addBox.classList.add("openModal2");
     })
+
+    function checkInputType() {
+        // Get the input element
+        var priceInput = document.getElementById("priceInput");
+
+        // Get the input value
+        var inputValue = priceInput.value.trim();
+
+        // Check if the input is a valid integer
+        if (/^\d+$/.test(inputValue)) {
+            alert("Input is a valid integer");
+        }
+        // Check if the input is a valid double
+        else if (/^\d+(\.\d+)?$/.test(inputValue)) {
+            alert("Input is a valid double");
+        }
+        // If neither, it's not a valid integer or double
+        else {
+            alert("Input is not a valid integer or double");
+        }
+    }
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("btn-close")) {
             deleteBox.forEach((box) => {

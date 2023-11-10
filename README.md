@@ -41,9 +41,9 @@ dotnet restore
 dotnet run
 ```
 
-## Visit http://localhost:1000 in your browser.
+# Visit http://localhost:1000 in your browser.
 
-User Roles
+## User Roles
 
 Admins:
 Can log in to the admin panel.

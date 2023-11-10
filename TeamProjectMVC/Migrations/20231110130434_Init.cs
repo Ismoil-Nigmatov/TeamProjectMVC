@@ -60,13 +60,13 @@ namespace TeamProjectMVC.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    TableName = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    TableName = table.Column<string>(type: "text", nullable: true),
                     DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    OldValues = table.Column<string>(type: "text", nullable: false),
-                    NewValues = table.Column<string>(type: "text", nullable: false),
-                    AffectedColumns = table.Column<string>(type: "text", nullable: false),
-                    PrimaryKey = table.Column<string>(type: "text", nullable: false)
+                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    NewValues = table.Column<string>(type: "text", nullable: true),
+                    AffectedColumns = table.Column<string>(type: "text", nullable: true),
+                    PrimaryKey = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -199,8 +199,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3303c4e1-493d-4e61-9137-c6f726b4ba8a", null, "USER", "USER" },
-                    { "8cc7b53a-3e11-47ad-8506-3ee2e3effc43", null, "ADMIN", "ADMIN" }
+                    { "66afde02-2e06-41bd-b303-e2c8083bd992", null, "ADMIN", "ADMIN" },
+                    { "c0b787af-ef32-405a-a131-acf80ef11160", null, "USER", "USER" }
                 });
 
             migrationBuilder.CreateIndex(

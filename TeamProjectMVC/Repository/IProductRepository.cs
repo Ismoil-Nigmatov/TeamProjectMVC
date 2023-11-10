@@ -7,8 +7,8 @@ namespace TeamProjectMVC.Repository
     {
         Task<List<Product>> GetAll();
         Task<Product> Get(string id);
-        Task Add(ProductDTO productDto);
+        Task Add(string userId, ProductDTO productDto);
         Task Update(string userId , string id, ProductDTO productDto);
-        Task Delete(string id);
+        Task Delete(string userId, string id);
     }
 }

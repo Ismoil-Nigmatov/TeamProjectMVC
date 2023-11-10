@@ -11,6 +11,7 @@ The Product Management System is an ASP.NET MVC web application designed to stre
 Ensure you have the following installed before running the application:
 
 - [.NET Core SDK](https://dotnet.microsoft.com/download)
+- [PostgreSQL](https://www.postgresql.org/download) (required for local database)
 
 ## Getting Started
 
@@ -25,6 +26,10 @@ cd product-management-system
 
 ### 2. Configure the Database
 
+Update the appsettings.json file with the local connection string.
+"ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=your-local-database-name;Username=your-username;Password=your-password;"
+  }
 ```bash
 dotnet ef database update
 ```

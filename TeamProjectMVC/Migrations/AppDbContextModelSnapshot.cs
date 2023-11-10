@@ -50,21 +50,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "32f97ce1-4a24-4832-834a-1f30216366a9",
-=======
-                            Id = "ceb41a28-a78b-471c-af2b-7b2f087a3d9f",
->>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3
+                            Id = "d776b522-135f-4543-8ffc-321bcad60400",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            Id = "ad511c07-da42-4b85-b0a2-4170c61c1434",
-=======
-                            Id = "58272131-ae6a-4afe-86aa-7584a0d3ae90",
->>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3
+                            Id = "301735a1-6d5b-4189-a8b7-4143af01a1ff",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -264,8 +256,11 @@ namespace TeamProjectMVC.Migrations
 
             modelBuilder.Entity("TeamProjectMVC.Models.Audit", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AffectedColumns")
                         .IsRequired()
@@ -279,6 +274,7 @@ namespace TeamProjectMVC.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("OldValues")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PrimaryKey")

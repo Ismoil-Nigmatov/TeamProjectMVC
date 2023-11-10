@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TeamProjectMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class INitial : Migration
+    public partial class Second : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,14 +57,15 @@ namespace TeamProjectMVC.Migrations
                 name: "AuditLogs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserName = table.Column<string>(type: "text", nullable: true),
-                    Action = table.Column<string>(type: "text", nullable: true),
-                    Path = table.Column<string>(type: "text", nullable: true),
-                    ResponseStatusCode = table.Column<int>(type: "integer", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ResponseTimestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    TableName = table.Column<string>(type: "text", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    NewValues = table.Column<string>(type: "text", nullable: false),
+                    AffectedColumns = table.Column<string>(type: "text", nullable: false),
+                    PrimaryKey = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,8 +76,7 @@ namespace TeamProjectMVC.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
@@ -198,8 +198,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3fca4b80-58f8-4bca-8cc6-62a836e2d882", null, "USER", "USER" },
-                    { "57593843-31e5-4f3a-bea5-9d1752f38362", null, "ADMIN", "ADMIN" }
+                    { "32f97ce1-4a24-4832-834a-1f30216366a9", null, "ADMIN", "ADMIN" },
+                    { "ad511c07-da42-4b85-b0a2-4170c61c1434", null, "USER", "USER" }
                 });
 
             migrationBuilder.CreateIndex(

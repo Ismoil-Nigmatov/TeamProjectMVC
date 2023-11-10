@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Models.LoginViewModel;
@@ -38,7 +41,10 @@ namespace TeamProjectMVC.Controllers
                 return View(loginViewModel);
             }
 
-            return RedirectToAction("Product", "Product");
+            var userRole = await _accountService.GetUserRole(loginViewModel.Email);
+            var userId = await _accountService.GetUserId(loginViewModel.Email);
+
+            return RedirectToAction("Product", "Product" , new {role = userRole , id = userId});
         }
 
         [HttpGet]

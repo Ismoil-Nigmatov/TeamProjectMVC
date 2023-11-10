@@ -13,21 +13,22 @@ namespace TeamProjectMVC.Controllers
             _productRepository = productRepository;
         }
 
-        public async Task<ViewResult> Product(string role)
+        public async Task<ViewResult> Product(string role, string id)
         {
             RoleProductDTO roleProductDto = new RoleProductDTO
             {
+                Id = id,
                 Role = role,
                 Products = await _productRepository.GetAll()
-            };
+            }; 
 
             return View("Product", roleProductDto);
         }
 
-        public async Task<IActionResult> UpdateAsync(string role, string id, ProductDTO productDto)
+        public async Task<IActionResult> UpdateAsync(string userId , string role, string id, ProductDTO productDto)
         {
             if (!ModelState.IsValid) return View("Product");
-            await _productRepository.Update(id, productDto);
+            await _productRepository.Update(userId, id, productDto);
             RoleProductDTO roleProductDto = new RoleProductDTO
             {
                 Role = role,
@@ -35,6 +36,7 @@ namespace TeamProjectMVC.Controllers
             };
             return View("Product", roleProductDto);
         }
+
 
         public async Task<IActionResult> DeleteAsync(string role, string id)
         {

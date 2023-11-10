@@ -4,18 +4,24 @@ using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Repository;
 using TeamProjectMVC.Repository.Impl;
-using TeamProjectMVC.Service;
 
 using TeamProjectMVC.Services;
 
+
+using TeamProjectMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+
 builder.Services.AddScoped<AuditLogService>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<AuditLogService>();
 
 builder.Services.AddScoped<AccountService>();
 

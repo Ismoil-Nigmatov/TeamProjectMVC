@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 //using TeamProjectMVC.Repository;
@@ -21,16 +22,12 @@ namespace TeamProjectMVC.Controllers
         // Get the audit logs as JSON and return the response to the UI.
         public async Task<IActionResult> Index()
         {
-            
-            //return Content(auditLogsAsJson, "application/json", Encoding.UTF8);
-
             var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
+            // return Content(auditLogsAsJson, "application/json", Encoding.UTF8);
             var auditLogs = JsonConvert.DeserializeObject<IEnumerable<TeamProjectMVC.Models.Audit>>(auditLogsAsJson);
 
             return View(auditLogs);
 
         }
-
-
     }
 }

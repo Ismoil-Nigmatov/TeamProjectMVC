@@ -1,18 +1,18 @@
-﻿@model List<TeamProjectMVC.Entity.Product>
+﻿@model TeamProjectMVC.Dto.RoleProductDTO
 @{
     Layout = null;
 }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
     <style>
-        body{
+        body {
             display: flex;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             background: #1B274E;
         }
-        .main{
+
+        .main {
             display: flex;
             justify-content: center;
             height: 90vh;
@@ -20,62 +20,237 @@
             overflow: hidden;
             padding: 20px 0;
         }
-        .main div{
-            width: 800px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #6a6a6a;
-            overflow: hidden;
-            padding: 20px;
+
+            .main .container {
+                width: 100vw;
+                border-radius: 10px;
+                box-shadow: 0 0 10px #6a6a6a;
+                overflow: hidden;
+                padding: 20px;
                 background: #1e2a54;
             }
-        .main div table{
-            color: white;
-            width: 100%;
-            margin-top: 50px;
-            height: 100%;
-        }
-        .main div table thead{ 
-            font-size: 27px;
-            font-family: fangsong;
+
+            .main div table {
+                color: white;
+                width: 100%;
+                margin-top: 50px;
+                height: 100%;
+                z-index: 0 !important;
+                overflow-y: scroll;
+            }
+
+                .main div table thead {
+                    font-size: 27px;
+                    font-family: fangsong;
+                }
+
+                .main div table tbody {
+                }
+
+        #modalDelete {
+            width: 600px;
+            height: 0px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            transform: translatey(-50%);
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            background: white;
+            display: none;
         }
 
-       .main div table tbody {
-            
+        .openModal {
+            height: 300px !important;
+            opacity: 1 !important;
+            width: 600px;
+            position: fixed;
+            top: 35% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            display: block !important;
+        }
+
+        .openModal2 {
+            height: 400px !important;
+            opacity: 1 !important;
+            width: 600px;
+            position: fixed;
+            top: 30% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            display: block !important;
+        }
+
+        .moda-footer {
+            position: absolute;
+            bottom: 10px;
+            width: 560px !important;
+        }
+
+        #modalUpdate {
+            display: none;
+            width: 600px;
+            height: 0px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            transform: translatey(-50%);
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            background: white;
+        }
+
+        .inp {
+            border-radius: 5px;
+            outline: none;
+            color: white;
+            background: none;
+            border: none;
+        }
+
+        form::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
 <body>
-<div class="main">
-    <div class="container">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>
-                    #
-                </th>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Quantiy
-                </th>
-                <th>
-                    Price
-                </th>
-            </tr>
-            </thead>
-            <tbody class="p-4 ">
-            @foreach (var iteam in Model)
-            {
-                <tr>
-                    <td>@iteam.Id</td>
-                    <td>@iteam.Name</td>
-                    <td>@iteam.Quantity</td>
-                    <td>@iteam.Price</td>
-                </tr>
-            }
-            </tbody>
-        </table>
+    <div class="main">
+        <div class="container">
+            <form style="overflow-y: scroll;" class="h-100" action="@Url.Action("Product", "Product")">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Quantiy
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                ToTalPrice
+                            </th>
+                            @if (@Model.Role != "USER")
+                            {
+                                <th>Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var iteam in Model.Products)
+                        {
+                            <tr>
+                                <td>
+                                    <input class="inp" value="@Model.Role" name="@Model.Role" type="hidden" />
+                                    <input class="inp" value="@iteam.Id" name="@iteam.Id" readonly />
+                                </td>
+                                <td><input class="inp" value="@iteam.Name" name="@iteam.Name" readonly /></td>
+                                <td><input class="inp" value="@iteam.Quantity" name="@iteam.Quantity" readonly /></td>
+                                <td><input class="inp" value="@iteam.Price" name="@iteam.Price" readonly /></td>
+                                <td><input class="inp" value="@iteam.Price" name="@iteam.ToTalPrice" readonly /></td>
+                                @if (@Model.Role != "USER")
+                                {
+                                    <td>
+                                        <div class="  d-flex justify-content-between align-content-center w-100">
+                                            <button style="height: 38px" type="button" class="btn btn-warning" id="btn-warning">Update</button>
+                                            <div id="modalUpdate">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Update</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form id="updateForm" method="post" asp-action="Update" asp-controller="Product">
+                                                    <div class="modal-body">
+                                                        <input value="@iteam.Id" name="Id"  class="form-control w-100 my-3 px-3" />
+                                                        <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3" />
+                                                        <input value="@iteam.Price" name="Price" class="form-control w-100 my-3 px-3" />
+                                                        <input value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
+                                                        <input value="@iteam.ToTalPrice" name="ToTalPrice" class="form-control w-100 my-3 px-3" />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="w-100 btn btn-outline-warning">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <form>
+                                                <input value="ADMIN" name="ADMIN" type="hidden" /><input value="@iteam.Id" name="@iteam.Id" type="hidden" />
+                                                <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
+                                                <div id="modalDelete">
+                                                    <div class="d-flex justify-content-between align-items-center w-100">
+                                                        <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="moda-footer"><button type="submit" asp-action="Delete" asp-controller="Product" class="w-100 btn btn-outline-danger"> Confirm </button></div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
     </div>
-</div>
 </body>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let updateBtn = document.querySelectorAll("#btn-warning");
+    let deleteBtn = document.querySelectorAll("#btn-danger");
+    let updateBox = document.querySelectorAll("#modalUpdate");
+    let deleteBox = document.querySelectorAll("#modalDelete");
+    let btnClose = document.querySelectorAll(".btn-close")
+    deleteBtn.forEach((btn, index) => {
+        btn.addEventListener("click", function () {
+            deleteBox[index].classList.add("openModal");
+        });
+    });
+    updateBtn.forEach((btn, index) => {
+        btn.addEventListener("click", function () {
+            console.log(index)
+            updateBox[index].classList.add("openModal2");
+        });
+    });
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("btn-close")) {
+            deleteBox.forEach((box) => {
+                box.classList.remove("openModal");
+            });
+            updateBox.forEach((box) => {
+                box.classList.remove("openModal2");
+            });
+        }
+    });
+
+
+</script>
+

@@ -1,28 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
-using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
-using TeamProjectMVC.Entity.Enums;
 using TeamProjectMVC.Models.LoginViewModel;
 using TeamProjectMVC.Models.RegisterViewModel;
+using TeamProjectMVC.Service;
 
 namespace TeamProjectMVC.Controllers
 {
     public class AccountController : Controller
     {
-
+        private readonly AccountService _accountService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly AppDbContext _appDbContext;
 
 
-        public AccountController(UserManager<User> userManager, AppDbContext appDbContext, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, AccountService accountService)
         {
             _userManager = userManager;
-            _appDbContext = appDbContext;
             _signInManager = signInManager;
-
+            _accountService = accountService;
         }
 
         [HttpGet]
@@ -32,53 +28,18 @@ namespace TeamProjectMVC.Controllers
             return View(response);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            // Validate email
-            if (!ModelState.IsValid)
+            var validation =_accountService.Validate(ModelState, loginViewModel);
+            if (validation != "success")
             {
-                var emailError = ModelState["Email"].Errors.FirstOrDefault();
-                if (emailError != null)
-                {
-                    TempData["Error"] = emailError.ErrorMessage;
-                    return View(loginViewModel);
-                }
-            }
-
-            // Validate the password.
-            if (!ValidatePassword(loginViewModel.Password))
-            {
-                // The password is invalid.
-                TempData["Error"] = "The password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                TempData["Error"] = validation;
                 return View(loginViewModel);
             }
 
-           
-            // Check if user exists
-            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
-            if (user == null)
-            {
-                TempData["Error"] = "User not found.";
-                return View(loginViewModel);
-            }
-
-            // Check if password is correct
-            var passwordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
-            if (!passwordCheck)
-            {
-                TempData["Error"] = "Password is incorrect.";
-                return View(loginViewModel);
-            }
-
-            // Login is successful
-            await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Product", "Product");
         }
-
-
-
 
         [HttpGet]
         public IActionResult Register()
@@ -87,77 +48,24 @@ namespace TeamProjectMVC.Controllers
             return View(response);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            // Validate the username
-            if (string.IsNullOrEmpty(model.Username))
-            {
-                TempData["Error"] = "Username is required";
-            }
-            else if (model.Username.Length < 6)
-            {
-                TempData["Error"] = "Username must be at least 6 characters long";
-            }
-
-            // Validate the email
-            if (string.IsNullOrEmpty(model.Email))
-            {
-                TempData["Error"] = "Email is required";
-            }
-            else if (!Regex.IsMatch(model.Email, @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*$"))
-            {
-                TempData["Error"] = "Email is invalid";
-            }
-
-            // Validate the password
-            if (!ValidatePassword(model.Password))
-            {
-                TempData["Error"] = "Password must be at least 8 characters long, contain at least one uppercase letter," +
-                    " one lowercase letter, one digit, and one special character.";
-            }
-
-            // Validate the confirm password
-            if (model.Password != model.ConfirmPassword)
-            {
-                TempData["Error"] = "Confirm password does not match password";
-            }
-
-            // If the model is invalid, return the register view
             if (!ModelState.IsValid)
             {
+                TempData["Error"] = "All fields are required!";
                 return View(model);
             }
 
-            // Check if the email address is already in use
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null)
+            var validateRegistration = await _accountService.ValidateRegistration(ModelState, model);
+            if (validateRegistration != "success")
             {
-                TempData["Error"] = "This email address is already in use";
+                TempData["Error"] = validateRegistration;
                 return View(model);
             }
 
-            // Create a new user
-            var newUser = new User()
-            {
-                Email = model.Email,
-                UserName = model.Username
-            };
-            var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
-            if (!newUserResponse.Succeeded)
-            {
-               TempData["Error"] = "An error occurred while creating the new user.";
-                return View(model);
-            }
-
-            // Add the new user to the User role
-            await _userManager.AddToRoleAsync(newUser, (ERole.USER).ToString());
-
-            // Redirect the user to the home page
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -165,60 +73,5 @@ namespace TeamProjectMVC.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
-
-
-        // VALIDATE PASSWORD
-        public bool ValidatePassword(string password)
-        {
-            // Check if the password is null or empty.
-            if (string.IsNullOrEmpty(password))
-            {
-                return
-
-        false;
-            }
-
-            // Check if the password is at least 8 characters long.
-
-
-            if (password.Length < 8)
-            {
-                return
-
-        false;
-            }
-
-            // Check if the password contains at least one uppercase letter.
-            if (!password.Any(char.IsUpper))
-            {
-                return false;
-            }
-
-            // Check if the password contains at least one lowercase letter.
-            if (!password.Any(char.IsLower))
-            {
-                return false;
-            }
-
-            // Check if the password contains at least one digit.
-            if (!password.Any(char.IsDigit))
-            {
-                return false;
-            }
-
-            // Check if the password contains at least one special character.
-            if (!password.Any(char.IsPunctuation))
-            {
-                return false;
-            }
-
-            // The password is valid.
-            return true;
-        }
-
-
-
-
-
     }
 }

@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+    
+   backend:
+    image: backend
+    depends_on:
+      - data_db
+    container_name: backend
+    ports: 
+      - "1001:80"
+    build:
+      context: ./TeamProjectMVC
+      dockerfile: Dockerfile
+    networks:
+      - dev
+
+   data_db:
+     image: postgres:latest
+     container_name: data_db
+     environment:
+       - POSTGRES_PASSWORD=123456
+     ports:
+       - "5432:5432"
+     restart: always
+     volumes:
+       - "pgadmin:/var/lib/postgresql/data"
+     networks:
+       - dev
+
+
+networks:
+  dev:
+    driver: bridge 
+
+volumes:
+  customer_data:
+    driver: local
+  pgadmin:
+    driver: local

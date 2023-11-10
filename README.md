@@ -26,7 +26,7 @@ cd product-management-system
 
 ### 2. Configure the Database
 
-Update the appsettings.json file with the local connection string.
+Update the appsettings.json file with the local connection string
 and run this command : 
 ```bash
 dotnet ef database update

@@ -38,7 +38,7 @@ namespace TeamProjectMVC.Controllers
                 return View(loginViewModel);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Product", "Product");
         }
 
         [HttpGet]

@@ -27,6 +27,7 @@ cd product-management-system
 ### 2. Configure the Database
 
 Update the appsettings.json file with the local connection string.
+
 "ConnectionStrings": {
     "DefaultConnection": "Host=localhost;Port=5432;Database=your-local-database-name;Username=your-username;Password=your-password;"
   }

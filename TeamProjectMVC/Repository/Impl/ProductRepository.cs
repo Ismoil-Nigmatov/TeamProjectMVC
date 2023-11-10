@@ -41,7 +41,7 @@ namespace TeamProjectMVC.Repository.Impl
         }
 
 
-        public async Task Update(string id, ProductDTO productDto)
+        public async Task Update(string userId, string id, ProductDTO productDto)
         {
             var vat = _configuration["Vat"]!;
 
@@ -53,7 +53,7 @@ namespace TeamProjectMVC.Repository.Impl
                 product.Quantity = productDto.Quantity;
                 product.ToTalPrice = (productDto.Quantity * productDto.Price) * (1 + Convert.ToDouble(vat));
                 _context.Entry(product).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(userId);
             }
             else
             {

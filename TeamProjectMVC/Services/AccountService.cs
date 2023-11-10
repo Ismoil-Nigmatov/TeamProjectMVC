@@ -146,5 +146,18 @@ namespace TeamProjectMVC.Services
             await _userManager.AddToRoleAsync(newUser, ERole.USER.ToString());
             return "success";
         }
+
+        public async Task<string> GetUserRole(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var rolesAsync = await _userManager.GetRolesAsync(user!);
+            return rolesAsync[0];
+        }
+
+        public async Task<string> GetUserId(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return user!.Id;
+        }
     }
 }

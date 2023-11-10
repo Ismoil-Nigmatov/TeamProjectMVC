@@ -119,12 +119,35 @@
             background: white;
         }
 
+        #modalAdd{
+            display: none;
+            width: 600px;
+            height: 0px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            transform: translatey(-50%);
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            background: white;
+        }
+
         .inp {
             border-radius: 5px;
             outline: none;
             color: white;
             background: none;
             border: none;
+        }
+
+        .add-btn{
+            border: none;
+            padding:10px;
+            border-radius:8px;
         }
 
         form::-webkit-scrollbar {
@@ -135,83 +158,120 @@
 <body>
     <div class="main">
         <div class="container">
+        @if (@Model.Role != "USER")
+            {
+                <button style="height: 38px" type="button" class="btn btn-warning" id="btn-add">Add Product</button>
+                <div id="modalAdd">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" asp-action="Create" asp-controller="Product">
+                        <div class="modal-body">
+                            <input type="hidden" name="userId" value="@Model.Id"/>
+                            <input type="hidden" name="role" value="@Model.Role"/>
+                            <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3"/>
+                            <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3"/>
+                            <input type="number" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" step="any" pattern="\d+(\.\d+)?" title="Enter a valid number" />
+                        </div>
+                        <div class="moda-footer">
+                            <button type="submit" class="w-100 btn btn-outline-warning">Add</button>
+                        </div>
+                    </form>
+            </div>
+            }
             <form style="overflow-y: scroll;" class="h-100" action="@Url.Action("Product", "Product")">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th>
-                                Quantiy
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                ToTalPrice
-                            </th>
-                            @if (@Model.Role != "USER")
-                            {
-                                <th>Action</th>
-                            }
-                        </tr>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Quantiy
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            ToTalPrice
+                        </th>
+                        @if (@Model.Role != "USER")
+                        {
+                            <th>Action</th>
+                        }
+                    </tr>
                     </thead>
                     <tbody>
 
-                        @foreach (var iteam in Model.Products)
-                        {
-                            <tr>
+                    @foreach (var iteam in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                <input class="inp" value="@Model.Role" name="@Model.Role" type="hidden"/>
+                                <input class="inp" value="@iteam.Id" name="@iteam.Id" readonly/>
+                            </td>
+                            <td><input class="inp" value="@iteam.Name" name="@iteam.Name" readonly/></td>
+                            <td><input class="inp" value="@iteam.Quantity" name="@iteam.Quantity" readonly/></td>
+                            <td><input class="inp" value="@iteam.Price" name="@iteam.Price" readonly/></td>
+                            <td><input class="inp" value="@iteam.ToTalPrice" name="@iteam.ToTalPrice" readonly/></td>
+                            @if (@Model.Role != "USER")
+                            {
                                 <td>
-                                    <input class="inp" value="@Model.Role" name="@Model.Role" type="hidden" />
-                                    <input class="inp" value="@iteam.Id" name="@iteam.Id" readonly />
-                                </td>
-                                <td><input class="inp" value="@iteam.Name" name="@iteam.Name" readonly /></td>
-                                <td><input class="inp" value="@iteam.Quantity" name="@iteam.Quantity" readonly /></td>
-                                <td><input class="inp" value="@iteam.Price" name="@iteam.Price" readonly /></td>
-                                <td><input class="inp" value="@iteam.Price" name="@iteam.ToTalPrice" readonly /></td>
-                                @if (@Model.Role != "USER")
-                                {
-                                    <td>
-                                        <div class="  d-flex justify-content-between align-content-center w-100">
-                                            <button style="height: 38px" type="button" class="btn btn-warning" id="btn-warning">Update</button>
-                                            <div id="modalUpdate">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Update</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="userId" value="@Model.Id" />
-                                                    <input type="hidden" name="role" value="@Model.Role" />
-                                                    <input type="hidden" name="id" value="@iteam.Id" />
-                                                    <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3"/>
-                                                    <input value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
-                                                    <input value="@iteam.Price" name="Price" class="form-control w-100 my-3 px-3"/>
-                                                </div>
-                                                <div class="moda-footer">
-                                                    <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
+                                    <div class="  d-flex justify-content-between align-content-center w-100">
+                                        <button style="height: 38px" type="button" class="btn btn-warning" id="btn-warning">Update</button>
+                                        <div id="modalUpdate">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Update</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="userId" value="@Model.Id"/>
+                                                <input type="hidden" name="role" value="@Model.Role"/>
+                                                <input type="hidden" name="id" value="@iteam.Id"/>
+                                                <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3"/>
+                                                <input type="number"value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3"/>
+                                                <input type="number" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" step="any" pattern="\d+(\.\d+)?" title="Enter a valid number" />
+                                            </div>
+                                            <div class="moda-footer">
+                                                <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
+                                            </div>
+                                        </div>
+                                        <form>
+                                            <input value="ADMIN" name="ADMIN" type="hidden"/><input value="@iteam.Id" name="@iteam.Id" type="hidden"/>
+                                            <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
+                                            <div id="modalDelete" class="modal" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <div class="d-flex justify-content-between align-items-center w-100">
+                                                                <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h4>Do you want to delete this product</h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input value="@Model.Id" name="userId" type="hidden"/>
+                                                            <input value="@Model.Role" name="role" type="hidden"/>
+                                                            <input value="@iteam.Id" name="@iteam.Id" type="hidden"/>
+                                                            <button type="submit" asp-action="Delete" asp-controller="Product" class="w-100 btn btn-outline-danger"> Confirm </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <form>
-                                                <input value="ADMIN" name="ADMIN" type="hidden" /><input value="@iteam.Id" name="@iteam.Id" type="hidden" />
-                                                <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
-                                                <div id="modalDelete">
-                                                    <div class="d-flex justify-content-between align-items-center w-100">
-                                                        <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="moda-footer"><button type="submit" asp-action="Delete" asp-controller="Product" class="w-100 btn btn-outline-danger"> Confirm </button></div>
-                                                </div>
-                                            </form>
-                                        </div>
 
-                                    </td>
-                                }
-                            </tr>
-                        }
+                                        </form>
+                                    </div>
+
+                                </td>
+                            }
+                        </tr>
+                    }
                     </tbody>
                 </table>
 
@@ -223,6 +283,8 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     let updateBtn = document.querySelectorAll("#btn-warning");
+    let addBtn = document.querySelector("#btn-add");
+    let addBox = document.querySelector("#modalAdd");
     let deleteBtn = document.querySelectorAll("#btn-danger");
     let updateBox = document.querySelectorAll("#modalUpdate");
     let deleteBox = document.querySelectorAll("#modalDelete");
@@ -238,6 +300,9 @@
             updateBox[index].classList.add("openModal2");
         });
     });
+    addBtn.addEventListener("click", function () {
+        addBox.classList.add("openModal2");
+    })
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("btn-close")) {
             deleteBox.forEach((box) => {
@@ -246,9 +311,8 @@
             updateBox.forEach((box) => {
                 box.classList.remove("openModal2");
             });
+            addBox.classList.remove("openModal2");
         }
     });
-
-
 </script>
 

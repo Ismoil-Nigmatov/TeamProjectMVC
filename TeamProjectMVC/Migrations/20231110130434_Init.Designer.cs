@@ -12,7 +12,7 @@ using TeamProjectMVC.Data;
 namespace TeamProjectMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231110113803_Init")]
+    [Migration("20231110130434_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,13 +53,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8cc7b53a-3e11-47ad-8506-3ee2e3effc43",
+                            Id = "66afde02-2e06-41bd-b303-e2c8083bd992",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3303c4e1-493d-4e61-9137-c6f726b4ba8a",
+                            Id = "c0b787af-ef32-405a-a131-acf80ef11160",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -266,30 +266,24 @@ namespace TeamProjectMVC.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AffectedColumns")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NewValues")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("OldValues")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PrimaryKey")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TableName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")

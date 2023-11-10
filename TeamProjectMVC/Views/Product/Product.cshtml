@@ -183,20 +183,18 @@
                                                     <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Update</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form id="updateForm" method="post" asp-action="Update" asp-controller="Product">
-                                                    <div class="modal-body">
-                                                        <input value="@iteam.Id" name="Id"  class="form-control w-100 my-3 px-3" />
-                                                        <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3" />
-                                                        <input value="@iteam.Price" name="Price" class="form-control w-100 my-3 px-3" />
-                                                        <input value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
-                                                        <input value="@iteam.ToTalPrice" name="ToTalPrice" class="form-control w-100 my-3 px-3" />
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="w-100 btn btn-outline-warning">Update</button>
-                                                    </div>
-                                                </form>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="userId" value="@Model.Id" />
+                                                    <input type="hidden" name="role" value="@Model.Role" />
+                                                    <input type="hidden" name="id" value="@iteam.Id" />
+                                                    <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3" />
+                                                    <input value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
+                                                    <input value="@iteam.Price" name="Price" class="form-control w-100 my-3 px-3" />
+                                                </div>
+                                                <div class="moda-footer">
+                                                    <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
+                                                </div>
                                             </div>
-
                                             <form>
                                                 <input value="ADMIN" name="ADMIN" type="hidden" /><input value="@iteam.Id" name="@iteam.Id" type="hidden" />
                                                 <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
@@ -253,4 +251,3 @@
 
 
 </script>
-

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Security.Claims;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Models;
 
@@ -9,9 +11,11 @@ namespace TeamProjectMVC.Data
 {
     public class AppDbContext :  IdentityDbContext<User>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options, IServiceProvider services) : base(options)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AppDbContext(DbContextOptions<AppDbContext> options, IServiceProvider services, IHttpContextAccessor httpContextAccessor) : base(options)
         {
             this.Services = services;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public DbSet<Product> Products { get; set; }  
@@ -28,7 +32,7 @@ namespace TeamProjectMVC.Data
         //  /********************************** AUDIT********************************************
 
 
-        public virtual async Task<int> SaveChangesAsync(string userId = null)
+        public virtual async Task<int> SaveChangesAsync(string userId)
         {
             OnBeforeSaveChanges(userId);
             var result = await base.SaveChangesAsync();

@@ -14,14 +14,9 @@ namespace TeamProjectMVC.Data
             this.Services = services;
         }
 
-   
-    
         public DbSet<Product> Products { get; set; }  
         public IServiceProvider Services { get; set; }
         public DbSet<Audit> AuditLogs { get; set; }
-
-
-
 
         //********************************************************************
         protected override void OnModelCreating(ModelBuilder builder)
@@ -91,8 +86,6 @@ namespace TeamProjectMVC.Data
             }
         }
         //  /********************************** AUDIT  ENDS ********************************************
-
-    }
 
     }
 }

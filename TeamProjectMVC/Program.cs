@@ -2,28 +2,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
-<<<<<<< HEAD
-//using TeamProjectMVC.Repository.Impl;
-//using TeamProjectMVC.Repository;
-using TeamProjectMVC.Services;
-=======
-using TeamProjectMVC.Repository.Impl;
 using TeamProjectMVC.Repository;
-using TeamProjectMVC.Service;
->>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3
+using TeamProjectMVC.Repository.Impl;
+using TeamProjectMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-<<<<<<< HEAD
-//builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<AuditLogService>();
-=======
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IAuditRepository, AuditRepository>();
+builder.Services.AddScoped<AuditLogService>();
 builder.Services.AddScoped<AccountService>();
->>>>>>> 5d627eff87eae85fb44e50a31c2a65bc396665a3
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(builder.Environment.ContentRootPath)

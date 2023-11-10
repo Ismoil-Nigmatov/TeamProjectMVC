@@ -6,7 +6,7 @@ using TeamProjectMVC.Entity.Enums;
 using TeamProjectMVC.Models.LoginViewModel;
 using TeamProjectMVC.Models.RegisterViewModel;
 
-namespace TeamProjectMVC.Service
+namespace TeamProjectMVC.Services
 {
     public class AccountService
     {
@@ -27,7 +27,7 @@ namespace TeamProjectMVC.Service
             }
             else
             {
-                if (!(IsValidEmail(loginViewModel.Email)))
+                if (!IsValidEmail(loginViewModel.Email))
                 {
                     return "Please enter valid email address!";
                 }
@@ -115,7 +115,7 @@ namespace TeamProjectMVC.Service
             {
                 return "Username must be at least 6 characters long";
             }
-            
+
             if (!IsValidEmail(model.Email))
             {
                 return "Email is invalid";
@@ -143,7 +143,7 @@ namespace TeamProjectMVC.Service
                 UserName = model.Username
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
-            await _userManager.AddToRoleAsync(newUser, (ERole.USER).ToString());
+            await _userManager.AddToRoleAsync(newUser, ERole.USER.ToString());
             return "success";
         }
     }

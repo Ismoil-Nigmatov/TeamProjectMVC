@@ -78,7 +78,8 @@ namespace TeamProjectMVC.Data
                                 auditEntry.ChangedColumns.Add(propertyName);
                                 auditEntry.AuditType = Entity.Enums.AuditType.Update;
                                 auditEntry.OldValues[propertyName] = property.OriginalValue;
-                                auditEntry.NewValues[propertyName] = property.CurrentValue;
+                                if (property.CurrentValue != null)
+                                    auditEntry.NewValues[propertyName] = property.CurrentValue;
                             }
                             break;
                     }

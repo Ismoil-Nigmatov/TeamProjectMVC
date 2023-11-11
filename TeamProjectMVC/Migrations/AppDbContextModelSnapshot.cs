@@ -50,13 +50,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5e36b816-8a12-4a25-8506-4a8b1e9c08aa",
+                            Id = "d4a7d001-6989-417d-9083-7aad623df49e",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f4a50a57-4f45-4652-b946-920516164e59",
+                            Id = "52c5870d-d020-4880-b8c0-3beb7358e6a5",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -263,30 +263,24 @@ namespace TeamProjectMVC.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AffectedColumns")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NewValues")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("OldValues")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PrimaryKey")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TableName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")

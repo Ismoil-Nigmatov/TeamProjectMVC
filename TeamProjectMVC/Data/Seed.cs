@@ -15,7 +15,7 @@ namespace TeamProjectMVC.Data
 
                 if (!await roleManager.RoleExistsAsync((ERole.ADMIN).ToString()))
                     await roleManager.CreateAsync(new IdentityRole((ERole.ADMIN).ToString()));
-                if (!await roleManager.RoleExistsAsync((ERole.USER).ToSt ring()))
+                if (!await roleManager.RoleExistsAsync((ERole.USER).ToString()))
                     await roleManager.CreateAsync(new IdentityRole((ERole.USER).ToString()));
 
                 //Users

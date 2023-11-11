@@ -4,7 +4,160 @@
 }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<<<<<<< HEAD
     <link rel="stylesheet" href="~/css/site.css" />
+=======
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1B274E;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            height: 90vh;
+            width: 90vw;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+            .main .container {
+                width: 100vw;
+                border-radius: 10px;
+                box-shadow: 0 0 10px #6a6a6a;
+                overflow: hidden;
+                padding: 20px;
+                background: #1e2a54;
+            }
+
+            .main div table {
+                color: white;
+                width: 100%;
+                margin-top: 50px;
+                height: 100%;
+                z-index: 0 !important;
+                overflow-y: scroll;
+            }
+
+                .main div table thead {
+                    font-size: 27px;
+                    font-family: fangsong;
+                }
+
+                .main div table tbody {
+                }
+
+        #modalDelete {
+            width: 600px;
+            height: 0px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            transform: translatey(-50%);
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            background: white;
+            display: none;
+        }
+
+        .openModal {
+            height: 300px !important;
+            opacity: 1 !important;
+            width: 600px;
+            position: fixed;
+            top: 35% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            display: block !important;
+        }
+
+        .openModal2 {
+            height: 400px !important;
+            opacity: 1 !important;
+            width: 600px;
+            position: fixed;
+            top: 30% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            display: block !important;
+        }
+
+        .moda-footer {
+            position: absolute;
+            bottom: 10px;
+            width: 560px !important;
+        }
+
+        #modalUpdate {
+            display: none;
+            width: 600px;
+            height: 0px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            transform: translatey(-50%);
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            background: white;
+        }
+
+        #modalAdd {
+            display: none;
+            width: 600px;
+            height: 0px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            transform: translatey(-50%);
+            opacity: 0;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 1;
+            transition: .4s;
+            background: white;
+        }
+
+        .inp {
+            border-radius: 5px;
+            outline: none;
+            color: white;
+            background: none;
+            border: none;
+        }
+
+        .add-btn {
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        form::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
 </head>
 <body>
     <div class="main">
@@ -12,6 +165,7 @@
             @if (@Model.Role != "USER")
             {
                 <button style="height: 38px" type="button" class="btn btn-warning" id="btn-add">Add Product</button>
+                 <a asp-controller="Audits" asp-action="Index"  class="btn btn-warning">Show Audit</a>
                 <div id="modalAdd">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add</h1>
@@ -19,11 +173,25 @@
                     </div>
                     <form method="post" asp-action="Create" asp-controller="Product">
                         <div class="modal-body">
+
+                            <input type="hidden" name="userId" value="@Model.Id" />
+                            <input type="hidden" name="role" value="@Model.Role" />
+                            <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" />
+                            <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
+                            <input type="number" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" step="any" pattern="\d+(\.\d+)?" title="Enter a valid number" />
+
                             <input type="hidden" name="userId" value="@Model.Id"/>
                             <input type="hidden" name="role" value="@Model.Role"/>
+<<<<<<< HEAD
                             <input oninput="this.value = this.value.replace(/[^a-zA-Zа-яА-Я0-9]/g, '')" value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required />
                             <input oninput="this.value = this.value.replace(/[^0-9]/g, '')"  type="text" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" required />
                             <input oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1')" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" title="Enter a valid integer or double" required />
+=======
+                            <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required/>
+                            <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" required/>
+                            <input value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" pattern="^\d+(\.\d+)?$" title="Enter a valid integer or double" required/>
+
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                         </div>
                         <div class="moda-footer">
                             <button type="submit" class="w-100 btn btn-outline-warning">Add</button>
@@ -34,6 +202,7 @@
             <form style="overflow-y: scroll;" class="h-100" >
                 <table class="table">
                     <thead>
+<<<<<<< HEAD
                     <tr>
                         <th>
                             Title
@@ -69,23 +238,113 @@
                                         <button style="height: 38px" type="button" class="btn btn-warning" id="btn-warning">Update</button>
                                         <div id="modalUpdate">
                                                 <form action="@Url.Action("Update", "Product")">
+=======
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Quantiy
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                ToTalPrice
+                            </th>
+                            @if (@Model.Role != "USER")
+                            {
+                                <th>Action</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var iteam in Model.Products)
+                        {
+                            <tr>
+                                <td>
+                                    <input class="inp" value="@Model.Role" name="@Model.Role" type="hidden" />
+                                    <input class="inp" value="@iteam.Id" name="@iteam.Id" readonly />
+                                </td>
+                                <td><input class="inp" value="@iteam.Name" name="@iteam.Name" readonly /></td>
+                                <td><input class="inp" value="@iteam.Quantity" name="@iteam.Quantity" readonly /></td>
+                                <td><input class="inp" value="@iteam.Price" name="@iteam.Price" readonly /></td>
+                                <td><input class="inp" value="@iteam.ToTalPrice" name="@iteam.ToTalPrice" readonly /></td>
+                                @if (@Model.Role != "USER")
+                                {
+                                    <td>
+                                        <div class="  d-flex justify-content-between align-content-center w-100">
+                                            <button style="height: 38px" type="button" class="btn btn-warning" id="btn-warning">Update</button>
+                                            <div id="modalUpdate">
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Update</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
+<<<<<<< HEAD
                                                     <input type="hidden" name="userId" value="@Model.Id"/>
                                                     <input type="hidden" name="role" value="@Model.Role"/>
                                                     <input type="hidden" name="id" value="@iteam.Id"/>
                                                         <input oninput="this.value = this.value.replace(/[^a-zA-Zа-яА-Я0-9]/g, '')" value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3" />
                                                         <input oninput="this.value = this.value.replace(/[^0-9]/g, '')" value="@iteam.Quantity" name="Quantity" class="form-control numInput w-100 my-3 px-3" required />
                                                         <input oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1')" value="@iteam.Price" placeholder="Price" name="Price" class="form-control numInput w-100 my-3 px-3" required />
+=======
+                                                    <input type="hidden" name="userId" value="@Model.Id" />
+                                                    <input type="hidden" name="role" value="@Model.Role" />
+                                                    <input type="hidden" name="id" value="@iteam.Id" />
+                                                    <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3" />
+                                                    <input type="number" value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
+                                                    <input type="number" value="@iteam.Price" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3"  />
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                                                 </div>
                                                 <div class="moda-footer">
                                                     <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
                                                 </div>
+<<<<<<< HEAD
                                             </form>
+=======
+                                            </div>
+
+                                            <form>
+                                                <input value="ADMIN" name="ADMIN" type="hidden" /><input value="@iteam.Id" name="@iteam.Id" type="hidden" />
+                                                <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
+                                                <div id="modalDelete" class="modal" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                                    <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h4>Do you want to delete this product</h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input value="@Model.Id" name="userId" type="hidden" />
+                                                                <input value="@Model.Role" name="role" type="hidden" />
+                                                                <input value="@iteam.Id" name="@iteam.Id" type="hidden" />
+                                                                <button type="submit" asp-action="Delete" asp-controller="Product" class="w-100 btn btn-outline-danger"> Confirm </button>
+
+                                            <div class="modal-body">
+                                                <input type="hidden" name="userId" value="@Model.Id"/>
+                                                <input type="hidden" name="role" value="@Model.Role"/>
+                                                <input type="hidden" name="id" value="@iteam.Id"/>
+                                                <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3"/>
+                                                <input type="number"value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3"/>
+                                                <input value="@iteam.Price" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" required/>
+                                            </div>
+                                            <div class="moda-footer">
+                                                <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
+                                            </div>
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                                         </div>
+                                       </form>
                                         <form>
                                             <input value="ADMIN" name="ADMIN" type="hidden"/><input value="@iteam.Id" name="@iteam.Id" type="hidden"/>
                                             <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
@@ -96,8 +355,10 @@
                                                             <div class="d-flex justify-content-between align-items-center w-100">
                                                                 <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                                                             </div>
                                                         </div>
+<<<<<<< HEAD
                                                         <div class="modal-body">
                                                             <h4 class="text-dark text-center">Do you want to delete this product</h4>
                                                         </div>
@@ -116,6 +377,18 @@
                             }
                         </tr>
                     }
+=======
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </td>
+                                }
+                            </tr>
+                        }
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                     </tbody>
                 </table>
             </form>
@@ -124,5 +397,32 @@
 </body>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<<<<<<< HEAD
 <script src="~/js/site.js"></script>
 
+=======
+<script>
+    let updateBtn = document.querySelectorAll("#btn-warning");
+    let addBtn = document.querySelector("#btn-add");
+    let addBox = document.querySelector("#modalAdd");
+    let deleteBtn = document.querySelectorAll("#btn-danger");
+    let updateBox = document.querySelectorAll("#modalUpdate");
+    let deleteBox = document.querySelectorAll("#modalDelete");
+    let btnClose = document.querySelectorAll(".btn-close")
+    deleteBtn.forEach((btn, index) => {
+        btn.addEventListener("click", function () {
+            deleteBox[index].classList.add("openModal");
+        });
+    });
+    updateBtn.forEach((btn, index) => {
+        btn.addEventListener("click", function () {
+            console.log(index)
+            updateBox[index].classList.add("openModal2");
+        });
+    });
+    addBtn.addEventListener("click", function () {
+        addBox.classList.add("openModal2");
+    })
+
+</script>
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62

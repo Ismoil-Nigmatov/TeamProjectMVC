@@ -1,18 +1,40 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Repository;
 using TeamProjectMVC.Repository.Impl;
+
+using TeamProjectMVC.Services;
+
+
 using TeamProjectMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "TeamProjectMVC API",
+        Version = "v1"
+    });
+});
+
+builder.Services.AddScoped<AuditLogService>();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<AuditLogService>();
+
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddHttpContextAccessor();
 
@@ -70,7 +92,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSwagger();
 
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TeamProjectMVC API");
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");

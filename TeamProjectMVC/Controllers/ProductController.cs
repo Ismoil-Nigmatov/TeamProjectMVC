@@ -20,12 +20,16 @@ namespace TeamProjectMVC.Controllers
                 Id = id,
                 Role = role,
                 Products = await _productRepository.GetAll()
+<<<<<<< HEAD
             };  
+=======
+            };
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
 
             return View("Product", roleProductDto);
         }
 
-        public async Task<IActionResult> UpdateAsync(string userId , string role, string id, ProductDTO productDto)
+        public async Task<IActionResult> UpdateAsync(string userId, string role, string id, ProductDTO productDto)
         {
             if (!ModelState.IsValid) return View("Product");
             await _productRepository.Update(userId, id, productDto);
@@ -66,4 +70,3 @@ namespace TeamProjectMVC.Controllers
         }
     }
 }
-

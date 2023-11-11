@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Models.LoginViewModel;
@@ -13,13 +10,11 @@ namespace TeamProjectMVC.Controllers
     public class AccountController : Controller
     {
         private readonly AccountService _accountService;
-        private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, AccountService accountService)
+        public AccountController(SignInManager<User> signInManager, AccountService accountService)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
             _accountService = accountService;
         }
@@ -27,6 +22,7 @@ namespace TeamProjectMVC.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            TempData.Clear();
             var response = new LoginViewModel();
             return View(response);
         }
@@ -34,15 +30,21 @@ namespace TeamProjectMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            var validation =_accountService.Validate(ModelState, loginViewModel);
-            if (validation != "success")
+            var validationError = await _accountService.HandleModelStateErrors(ModelState, "Please enter valid data.");
+            if (validationError != "success")
             {
-                TempData["Error"] = validation;
-                return View(loginViewModel);
+                TempData["Error"] = validationError;
+                TempData.Keep("Error");
+                return View();
             }
 
-            var userRole = await _accountService.GetUserRole(loginViewModel.Email);
-            var userId = await _accountService.GetUserId(loginViewModel.Email);
+            var (isAuthenticated, userRole, userId) = await _accountService.CheckUserAsync(loginViewModel);
+
+            if (!isAuthenticated)
+            {
+                TempData["Error"] = "Email or v password is incorrect";
+                return View();
+            }
 
             return RedirectToAction("Product", "Product" , new {role = userRole , id = userId});
         }
@@ -50,6 +52,7 @@ namespace TeamProjectMVC.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            TempData.Clear();
             var response = new RegisterViewModel();
             return View(response);
         }
@@ -57,18 +60,14 @@ namespace TeamProjectMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            var validationError = await _accountService.HandleModelStateErrors(ModelState, "Please enter valid data.");
+            if (validationError != "success")
             {
-                TempData["Error"] = "All fields are required!";
-                return View(model);
+                TempData["Error"] = validationError;
+                return View();
             }
 
-            var validateRegistration = await _accountService.ValidateRegistration(ModelState, model);
-            if (validateRegistration != "success")
-            {
-                TempData["Error"] = validateRegistration;
-                return View(model);
-            }
+            await _accountService.RegisterUser(model);
 
             return RedirectToAction("Login", "Account");
         }

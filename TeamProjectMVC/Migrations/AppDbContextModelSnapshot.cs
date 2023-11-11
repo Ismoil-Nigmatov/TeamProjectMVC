@@ -50,13 +50,21 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<< HEAD
                             Id = "e116c0cd-4005-4598-899e-c005fece7907",
+=======
+                            Id = "d4a7d001-6989-417d-9083-7aad623df49e",
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
+<<<<<<< HEAD
                             Id = "087f617a-6d3a-4061-8f9f-cd5cc4763231",
+=======
+                            Id = "52c5870d-d020-4880-b8c0-3beb7358e6a5",
+>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62
                             Name = "USER",
                             NormalizedName = "USER"
                         });

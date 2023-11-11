@@ -158,12 +158,6 @@
 <body>
     <div class="main">
         <div class="container">
-            @if (TempData["Error"] != null)
-            {
-                <p class="col-md-12 btn btn-danger" style="color:red;">
-                    <span><b>Sorry!</b> - @TempData["Error"]</span>
-                </p>
-            }
             @if (@Model.Role != "USER")
             {
                 <button style="height: 38px" type="button" class="btn btn-warning" id="btn-add">Add Product</button>
@@ -310,36 +304,5 @@
         addBox.classList.add("openModal2");
     })
 
-    function checkInputType() {
-        // Get the input element
-        var priceInput = document.getElementById("priceInput");
-
-        // Get the input value
-        var inputValue = priceInput.value.trim();
-
-        // Check if the input is a valid integer
-        if (/^\d+$/.test(inputValue)) {
-            alert("Input is a valid integer");
-        }
-        // Check if the input is a valid double
-        else if (/^\d+(\.\d+)?$/.test(inputValue)) {
-            alert("Input is a valid double");
-        }
-        // If neither, it's not a valid integer or double
-        else {
-            alert("Input is not a valid integer or double");
-        }
-    }
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("btn-close")) {
-            deleteBox.forEach((box) => {
-                box.classList.remove("openModal");
-            });
-            updateBox.forEach((box) => {
-                box.classList.remove("openModal2");
-            });
-            addBox.classList.remove("openModal2");
-        }
-    });
 </script>
 

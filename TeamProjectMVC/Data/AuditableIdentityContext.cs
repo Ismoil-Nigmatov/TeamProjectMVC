@@ -10,8 +10,8 @@ using TeamProjectMVC.Models;
 using TeamProjectMVC.Entity.Enums;
 using TeamProjectMVC.Entity;
 
-namespace TeamProjectMVC.Data
-{
+namespace TeamProjectMVC.Data;
+
 public abstract class AuditableIdentityContext : IdentityDbContext<User>
 {
     public AuditableIdentityContext(DbContextOptions options) : base(options)
@@ -22,16 +22,16 @@ public abstract class AuditableIdentityContext : IdentityDbContext<User>
 
     public virtual async Task<int> SaveChangesAsync(string? userId = null)
     {
-            OnBeforeSaveChanges(userId);
-            var auditEntries = new List<AuditEntry>();
-            foreach (var auditEntry in auditEntries)
-            {
-                AuditLogs.Add(auditEntry.ToAudit());
-            }
-
-            var result = await base.SaveChangesAsync();
-            return result;
+        OnBeforeSaveChanges(userId);
+        var auditEntries = new List<AuditEntry>();
+        foreach (var auditEntry in auditEntries)
+        {
+            AuditLogs.Add(auditEntry.ToAudit());
         }
+
+        var result = await base.SaveChangesAsync();
+        return result;
+    }
 
     private void OnBeforeSaveChanges(string userId)
     {
@@ -57,7 +57,7 @@ public abstract class AuditableIdentityContext : IdentityDbContext<User>
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                            auditEntry.AuditType = TeamProjectMVC.Entity.Enums.AuditType.Create;
+                        auditEntry.AuditType = TeamProjectMVC.Entity.Enums.AuditType.Create;
                         auditEntry.NewValues[propertyName] = property.CurrentValue;
                         break;
 
@@ -83,5 +83,4 @@ public abstract class AuditableIdentityContext : IdentityDbContext<User>
             AuditLogs.Add(auditEntry.ToAudit());
         }
     }
-}
 }

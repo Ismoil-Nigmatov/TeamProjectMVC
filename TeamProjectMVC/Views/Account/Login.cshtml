@@ -156,16 +156,16 @@
             <div class="textbox">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                
-                <input  asp-for="Email" class="form-control" autocomplete="off" type="email" placeholder="Email" />
+                <input  asp-for="Email" class="form-control" autocomplete="off" type="email" placeholder="Email" required/>
               
             </div>
             <div class="textbox">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                
-                <input asp-for="Password" class="form-control" autocomplete="off" type="password" placeholder="Password"  />
+                <input asp-for="Password" class="form-control" autocomplete="off" type="password" placeholder="Password"  required/>
 
                
-            </div>
+            </div> 
             <button asp-controller="Account" asp-action="Login" type="submit" class="btn btn-pill btn-outline-info" style="width: 100%;">
                 <i class="fa fa-sign-in mr-1"></i>  &nbsp; Login
             </button>

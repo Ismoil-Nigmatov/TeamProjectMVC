@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 using TeamProjectMVC.Dto;
+using TeamProjectMVC.Migrations;
 using TeamProjectMVC.Repository;
 
 namespace TeamProjectMVC.Controllers
@@ -54,7 +56,6 @@ namespace TeamProjectMVC.Controllers
 
         public async Task<IActionResult> CreateAsync(string userId, string role, ProductDTO productDto)
         {
-
             if (!ModelState.IsValid) return View("Product");
             await _productRepository.Add(userId ,productDto);
             RoleProductDTO roleProductDto = new RoleProductDTO

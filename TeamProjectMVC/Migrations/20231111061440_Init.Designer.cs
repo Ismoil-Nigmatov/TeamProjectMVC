@@ -12,7 +12,7 @@ using TeamProjectMVC.Data;
 namespace TeamProjectMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231110130434_Init")]
+    [Migration("20231111061440_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,13 +53,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "66afde02-2e06-41bd-b303-e2c8083bd992",
+                            Id = "40faf2f2-8beb-4538-91c4-bf6043cce97e",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c0b787af-ef32-405a-a131-acf80ef11160",
+                            Id = "829b5ff4-a94e-4323-b1cf-39cd4c195b15",
                             Name = "USER",
                             NormalizedName = "USER"
                         });

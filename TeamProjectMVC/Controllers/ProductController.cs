@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
 using TeamProjectMVC.Dto;
-using TeamProjectMVC.Migrations;
 using TeamProjectMVC.Repository;
 
 namespace TeamProjectMVC.Controllers
@@ -22,7 +20,7 @@ namespace TeamProjectMVC.Controllers
                 Id = id,
                 Role = role,
                 Products = await _productRepository.GetAll()
-            }; 
+            };  
 
             return View("Product", roleProductDto);
         }

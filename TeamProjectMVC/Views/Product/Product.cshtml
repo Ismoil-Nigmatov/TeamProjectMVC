@@ -161,6 +161,7 @@
             @if (@Model.Role != "USER")
             {
                 <button style="height: 38px" type="button" class="btn btn-warning" id="btn-add">Add Product</button>
+                 <a asp-controller="Audits" asp-action="Index"  class="btn btn-warning">Show Audit</a>
                 <div id="modalAdd">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add</h1>
@@ -168,11 +169,19 @@
                     </div>
                     <form method="post" asp-action="Create" asp-controller="Product">
                         <div class="modal-body">
+
                             <input type="hidden" name="userId" value="@Model.Id" />
                             <input type="hidden" name="role" value="@Model.Role" />
                             <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" />
                             <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" />
                             <input type="number" value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" step="any" pattern="\d+(\.\d+)?" title="Enter a valid number" />
+
+                            <input type="hidden" name="userId" value="@Model.Id"/>
+                            <input type="hidden" name="role" value="@Model.Role"/>
+                            <input value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required/>
+                            <input type="number" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" required/>
+                            <input value="" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" pattern="^\d+(\.\d+)?$" title="Enter a valid integer or double" required/>
+
                         </div>
                         <div class="moda-footer">
                             <button type="submit" class="w-100 btn btn-outline-warning">Add</button>
@@ -240,6 +249,7 @@
                                                     <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
                                                 </div>
                                             </div>
+
                                             <form>
                                                 <input value="ADMIN" name="ADMIN" type="hidden" /><input value="@iteam.Id" name="@iteam.Id" type="hidden" />
                                                 <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
@@ -260,6 +270,31 @@
                                                                 <input value="@Model.Role" name="role" type="hidden" />
                                                                 <input value="@iteam.Id" name="@iteam.Id" type="hidden" />
                                                                 <button type="submit" asp-action="Delete" asp-controller="Product" class="w-100 btn btn-outline-danger"> Confirm </button>
+
+                                            <div class="modal-body">
+                                                <input type="hidden" name="userId" value="@Model.Id"/>
+                                                <input type="hidden" name="role" value="@Model.Role"/>
+                                                <input type="hidden" name="id" value="@iteam.Id"/>
+                                                <input value="@iteam.Name" name="Name" class="form-control w-100 my-3 px-3"/>
+                                                <input type="number"value="@iteam.Quantity" name="Quantity" class="form-control w-100 my-3 px-3"/>
+                                                <input value="@iteam.Price" placeholder="Price" name="Price" class="form-control w-100 my-3 px-3" required/>
+                                            </div>
+                                            <div class="moda-footer">
+                                                <button type="submit" asp-action="Update" asp-controller="Product" class="w-100 btn btn-outline-warning">Update</button>
+                                            </div>
+                                        </div>
+                                       </form>
+                                        <form>
+                                            <input value="ADMIN" name="ADMIN" type="hidden"/><input value="@iteam.Id" name="@iteam.Id" type="hidden"/>
+                                            <button type="button" id="btn-danger" class="btn btn-danger">Delete</button>
+                                            <div id="modalDelete" class="modal" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <div class="d-flex justify-content-between align-items-center w-100">
+                                                                <h1 class="modal-title fs-5 text-danger" id="exampleModalToggleLabel">Delete</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -303,15 +338,5 @@
     addBtn.addEventListener("click", function () {
         addBox.classList.add("openModal2");
     })
-    document.addEventListener("click", function (event) {
-        if (event.target.classList.contains("btn-close")) {
-            deleteBox.forEach((box) => {
-                box.classList.remove("openModal");
-            });
-            updateBox.forEach((box) => {
-                box.classList.remove("openModal2");
-            });
-            addBox.classList.remove("openModal2");
-        }
-    });
+
 </script>

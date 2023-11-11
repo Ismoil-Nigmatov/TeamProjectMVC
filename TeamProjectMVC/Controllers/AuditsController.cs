@@ -19,13 +19,12 @@ namespace TeamProjectMVC.Controllers
             _auditLogService = auditLogService;
         }
 
-        // Get the audit logs as JSON and return the response to the UI.
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
-            // return Content(auditLogsAsJson, "application/json", Encoding.UTF8);
             var auditLogs = JsonConvert.DeserializeObject<IEnumerable<TeamProjectMVC.Models.Audit>>(auditLogsAsJson);
-
+            Console.WriteLine(auditLogs);
             return View(auditLogs);
 
         }

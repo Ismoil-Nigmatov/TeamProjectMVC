@@ -50,13 +50,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d4a7d001-6989-417d-9083-7aad623df49e",
+                            Id = "370f6f96-db90-46b2-b415-440d7f9e8d19",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "52c5870d-d020-4880-b8c0-3beb7358e6a5",
+                            Id = "f528613e-b748-4057-870d-6e08db258310",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -188,6 +188,32 @@ namespace TeamProjectMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "HDD 1TB",
+                            Price = 74.090000000000003,
+                            Quantity = 55,
+                            ToTalPrice = 411569.95000000001
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "HDD SSD 512GB",
+                            Price = 190.99000000000001,
+                            Quantity = 102,
+                            ToTalPrice = 1967578.98
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "RAM DDR4 16GB",
+                            Price = 80.319999999999993,
+                            Quantity = 47,
+                            ToTalPrice = 38127904.0
+                        });
                 });
 
             modelBuilder.Entity("TeamProjectMVC.Entity.User", b =>

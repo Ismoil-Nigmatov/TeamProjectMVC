@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TeamProjectMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -199,13 +199,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:TeamProjectMVC/Migrations/20231111061440_Init.cs
-                    { "40faf2f2-8beb-4538-91c4-bf6043cce97e", null, "ADMIN", "ADMIN" },
-                    { "829b5ff4-a94e-4323-b1cf-39cd4c195b15", null, "USER", "USER" }
-========
-                    { "52c5870d-d020-4880-b8c0-3beb7358e6a5", null, "USER", "USER" },
-                    { "d4a7d001-6989-417d-9083-7aad623df49e", null, "ADMIN", "ADMIN" }
->>>>>>>> 370b05055d3fc69cdbceeda4c33df3517c6fbe62:TeamProjectMVC/Migrations/20231110140554_Initial.cs
+                    { "4343c003-f1ea-460e-9d48-92de50650705", null, "USER", "USER" },
+                    { "9e29caf2-0e06-4c65-9ac0-f779d0c41bb8", null, "ADMIN", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

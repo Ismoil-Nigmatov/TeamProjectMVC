@@ -12,8 +12,8 @@ using TeamProjectMVC.Data;
 namespace TeamProjectMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231111065157_Init1")]
-    partial class Init1
+    [Migration("20231111102522_Init2")]
+    partial class Init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,13 +53,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "38015abd-8ea1-4814-bd45-02d7c367a1bc",
+                            Id = "9e29caf2-0e06-4c65-9ac0-f779d0c41bb8",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d3de1f4b-a575-4d05-bb6e-8db1a131473d",
+                            Id = "4343c003-f1ea-460e-9d48-92de50650705",
                             Name = "USER",
                             NormalizedName = "USER"
                         });

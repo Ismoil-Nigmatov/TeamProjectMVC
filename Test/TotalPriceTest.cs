@@ -21,7 +21,7 @@ namespace Test
             var totalPrice = productRepository.CalculateTotalPrice(quantity, price);
 
             var expectedTotalPrice = (quantity * price) * (1 + Convert.ToDouble(vat));
-            Assert.Equal(expectedTotalPrice, totalPrice);
+            Assert.Equal(expectedTotalPrice, totalPrice.Result);
         }
     }
 }

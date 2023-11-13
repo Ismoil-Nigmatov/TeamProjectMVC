@@ -22,11 +22,15 @@ namespace TeamProjectMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
-            var auditLogs = JsonConvert.DeserializeObject<IEnumerable<TeamProjectMVC.Models.Audit>>(auditLogsAsJson);
-            Console.WriteLine(auditLogs);
-            return View(auditLogs);
+            return View("AuditType");
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAuditTable()
+        {
+             var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
+             var auditLogs = JsonConvert.DeserializeObject<IEnumerable<TeamProjectMVC.Models.Audit>>(auditLogsAsJson);
+            return View("Index" , auditLogs);
         }
     }
 }

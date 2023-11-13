@@ -6,7 +6,7 @@ namespace TeamProjectMVC.Models.RegisterViewModel
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Username is required.")]
-        [StringLength(2, ErrorMessage = "Username must be at least 2 characters long.")]
+        [MinLength(2, ErrorMessage = "Username must be at least 2 characters long.")]
         public string Username  { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]

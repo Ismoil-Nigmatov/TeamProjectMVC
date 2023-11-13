@@ -19,16 +19,17 @@ namespace TeamProjectMVC.Controllers
             {
                 Id = id,
                 Role = role,
+               
                 Products = await _productRepository.GetAll()
-            };  
+            };
 
             return View("Product", roleProductDto);
         }
 
-        public async Task<IActionResult> UpdateAsync(string userId , string role, string id, ProductDTO productDto)
+        public async Task<IActionResult> UpdateAsync(string userId, string role, string id, string userName, ProductDTO productDto)
         {
             if (!ModelState.IsValid) return View("Product");
-            await _productRepository.Update(userId, id, productDto);
+            await _productRepository.Update(userId, id, userName, productDto);
             RoleProductDTO roleProductDto = new RoleProductDTO
             {
                 Id = userId,
@@ -39,10 +40,10 @@ namespace TeamProjectMVC.Controllers
         }
 
 
-        public async Task<IActionResult> DeleteAsync(string userId, string role, string id)
+        public async Task<IActionResult> DeleteAsync(string userId, string userName, string role, string id)
         {
             if (!ModelState.IsValid) return View("Product");
-            await _productRepository.Delete(userId, id);
+            await _productRepository.Delete(userId,  id, userName);
             RoleProductDTO roleProductDto = new RoleProductDTO
             {
                 Id = userId,
@@ -52,10 +53,10 @@ namespace TeamProjectMVC.Controllers
             return View("Product", roleProductDto);
         }
 
-        public async Task<IActionResult> CreateAsync(string userId, string role, ProductDTO productDto)
+        public async Task<IActionResult> CreateAsync(string userId, string userName, string role, ProductDTO productDto)
         {
             if (!ModelState.IsValid) return View("Product");
-            await _productRepository.Add(userId ,productDto);
+            await _productRepository.Add(userId, userName,  productDto);
             RoleProductDTO roleProductDto = new RoleProductDTO
             {
                 Id = userId,
@@ -66,4 +67,3 @@ namespace TeamProjectMVC.Controllers
         }
     }
 }
-

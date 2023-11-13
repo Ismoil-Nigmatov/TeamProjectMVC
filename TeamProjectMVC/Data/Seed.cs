@@ -59,9 +59,9 @@ namespace TeamProjectMVC.Data
                     var productRepository = serviceScope.ServiceProvider.GetRequiredService<IProductRepository>();
                     var defaultProducts = new List<Product>
                     {
-                        new Product { Name = "HDD 1TB", Quantity = 55, Price = 74.09, ToTalPrice = await productRepository.CalculateTotalPrice(10, 19.99) },
-                        new Product { Name = "HDD SSD 512GB", Quantity = 102, Price = 190.99, ToTalPrice = await productRepository.CalculateTotalPrice(5, 29.99) },
-                        new Product { Name = "RAM DDR4 16GB", Quantity = 47, Price = 80.32, ToTalPrice = await productRepository.CalculateTotalPrice(8, 14.99) }
+                        new Product { Name = "HDD 1TB", Quantity = 55, Price = 74.09, ToTalPrice = await productRepository.CalculateTotalPrice(55, 74.09) },
+                        new Product { Name = "HDD SSD 512GB", Quantity = 102, Price = 190.99, ToTalPrice = await productRepository.CalculateTotalPrice(102, 190.99) },
+                        new Product { Name = "RAM DDR4 16GB", Quantity = 47, Price = 80.32, ToTalPrice = await productRepository.CalculateTotalPrice(47, 80.32) }
                     };
                     dbContext.Products.AddRange(defaultProducts);
                     await dbContext.SaveChangesAsync();

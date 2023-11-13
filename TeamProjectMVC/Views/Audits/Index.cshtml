@@ -2,39 +2,40 @@
 @{
     Layout = null;
 }
-<h1>Audit Logs</h1>
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/Audit.css" />
+<h1 class="text-center text-white my-4 ">Audit Logs</h1>
 
 
 <div class="container">
     <a class="btn btn-warning"  asp-controller="Product" asp-action="Product">Return</a>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped">
+            <table class="table border-1 table-striped">
                 <thead class="thead-success">
                     <tr>
-                        <th>Id</th>
+                        <th class="text-white">Id</th>
                         @*<th>UserId</th>*@
-                        <th>Type</th>
-                        <th>Table Name</th>
-                        <th>Date Time</th>
-                        <th>Old values</th>
-                        <th> New Values</th>
-                        <th>Affected Columns</th>
+                        <th class="text-white">Type</th>
+                        <th class="text-white">Table Name</th>
+                        <th class="text-white">Date Time</th>
+                        <th class="text-white">Old values</th>
+                        <th class="text-white"> New Values</th>
+                        <th class="text-white">Affected Columns</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Id) </td>
+                            <td class="text-white">@Html.DisplayFor(modelItem => item.Id) </td>
                             @*<td> @Html.DisplayFor(modelItem => item.UserId)</td>*@
-                            <td> @Html.DisplayFor(modelItem => item.Type)</td>
-                            <td> @Html.DisplayFor(modelItem => item.TableName)</td>
-                            <td> @Html.DisplayFor(modelItem => item.DateTime)</td>
-                            <td> @Html.DisplayFor(modelItem => item.OldValues)</td>
-                            <td> @Html.DisplayFor(modelItem => item.NewValues)</td>
-                            <td> @Html.DisplayFor(modelItem => item.AffectedColumns)</td>
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.Type)</td>
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.TableName)</td>
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.DateTime)</td>
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.OldValues)</td>
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.NewValues)</td>
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.AffectedColumns)</td>
                         </tr>
                     }
                 </tbody>

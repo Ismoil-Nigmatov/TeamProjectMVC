@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TeamProjectMVC.Entity.Enums;
 using TeamProjectMVC.Entity;
+using TeamProjectMVC.Repository;
 
 namespace TeamProjectMVC.Data
 {
@@ -51,10 +52,21 @@ namespace TeamProjectMVC.Data
                     await userManager.CreateAsync(newAppUser, "Coding@1234?");
                     await userManager.AddToRoleAsync(newAppUser, (ERole.USER).ToString());
                 }
+
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+                if (!dbContext.Products.Any())
+                {
+                    var productRepository = serviceScope.ServiceProvider.GetRequiredService<IProductRepository>();
+                    var defaultProducts = new List<Product>
+                    {
+                        new Product { Name = "HDD 1TB", Quantity = 55, Price = 74.09, ToTalPrice = await productRepository.CalculateTotalPrice(10, 19.99) },
+                        new Product { Name = "HDD SSD 512GB", Quantity = 102, Price = 190.99, ToTalPrice = await productRepository.CalculateTotalPrice(5, 29.99) },
+                        new Product { Name = "RAM DDR4 16GB", Quantity = 47, Price = 80.32, ToTalPrice = await productRepository.CalculateTotalPrice(8, 14.99) }
+                    };
+                    dbContext.Products.AddRange(defaultProducts);
+                    await dbContext.SaveChangesAsync();
+                }
             }
         }
-
-
-
     }
 }

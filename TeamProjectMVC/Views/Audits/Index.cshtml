@@ -1,9 +1,13 @@
 ﻿@model IEnumerable<TeamProjectMVC.Models.Audit>
-
+@{
+    Layout = null;
+}
 <h1>Audit Logs</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 
 <div class="container">
+    <a class="btn btn-warning"  asp-controller="Product" asp-action="Product">Return</a>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
@@ -40,3 +44,4 @@
     </div>
 
 </div> 
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

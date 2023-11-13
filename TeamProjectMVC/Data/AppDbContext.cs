@@ -35,23 +35,17 @@ namespace TeamProjectMVC.Data
                 );
         }
 
-
-
-
-
-
-
         //  /********************************** AUDIT********************************************
 
 
-        public virtual async Task<int> SaveChangesAsync(string userId, string userName)
+        public virtual async Task<int> SaveChangesAsync(string userId)
         {
-            OnBeforeSaveChanges(userId, userName);
+            OnBeforeSaveChanges(userId);
             var result = await base.SaveChangesAsync();
             return result;
         }
 
-        private void OnBeforeSaveChanges(string userId, string userName)
+        private void OnBeforeSaveChanges(string userId)
         {
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
@@ -61,8 +55,9 @@ namespace TeamProjectMVC.Data
                     continue;
                 var auditEntry = new AuditEntry(entry);
                 auditEntry.TableName = entry.Entity.GetType().Name;
+                auditEntry.UserName = entry.Property("UserName").CurrentValue?.ToString();
                 auditEntry.UserId = userId;
-                auditEntry.UserName = userName; ;
+             
                 auditEntries.Add(auditEntry);
                 foreach (var property in entry.Properties)
                 {

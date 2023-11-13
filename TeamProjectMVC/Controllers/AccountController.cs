@@ -38,7 +38,7 @@ namespace TeamProjectMVC.Controllers
                 return View();
             }
 
-            var (isAuthenticated, userRole, userId) = await _accountService.CheckUserAsync(loginViewModel);
+            var (isAuthenticated, userRole, userId) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
 
             if (!isAuthenticated)
             {
@@ -67,9 +67,19 @@ namespace TeamProjectMVC.Controllers
                 return View();
             }
 
+            var isAuthenticated = await _accountService.CheckUser(model.Email);
+
+            if (isAuthenticated)
+            {
+                TempData["Error"] = "User with this email already exists";
+                return View();
+            }
+
             await _accountService.RegisterUser(model);
 
-            return RedirectToAction("Login", "Account");
+            ViewBag.Success = "Registration successful! You will be redirected to the login page in 3 seconds.";
+
+            return View();
         }
 
         [HttpGet]

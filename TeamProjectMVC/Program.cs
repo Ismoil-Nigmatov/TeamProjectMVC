@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -7,10 +6,6 @@ using TeamProjectMVC.Data;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Repository;
 using TeamProjectMVC.Repository.Impl;
-
-using TeamProjectMVC.Services;
-
-
 using TeamProjectMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);

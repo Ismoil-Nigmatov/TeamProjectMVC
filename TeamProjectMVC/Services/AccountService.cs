@@ -25,11 +25,11 @@ namespace TeamProjectMVC.Services
             return errorMessages.Count > 0 ? errorMessages[0] : defaultErrorMessage;
         }
 
-        public async Task<(bool IsAuthenticated, string UserRole, string UserId)> CheckUserAsync(LoginViewModel loginView)
+        public async Task<(bool IsAuthenticated, string UserRole, string UserId)> CheckUserAsync(string email,  string password)
         {
-            var user = await _userManager.FindByEmailAsync(loginView.Email);
+            var user = await _userManager.FindByEmailAsync(email);
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, loginView.Password))
+            if (user != null && await _userManager.CheckPasswordAsync(user, password))
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 return (true, roles.FirstOrDefault(), user.Id)!;
@@ -48,6 +48,16 @@ namespace TeamProjectMVC.Services
             var newUserResponse = await _userManager.CreateAsync(newUser, model.Password);
             await _userManager.AddToRoleAsync(newUser, ERole.USER.ToString());
             return true;
-        } 
+        }
+
+        public async Task<bool> CheckUser(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is not null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

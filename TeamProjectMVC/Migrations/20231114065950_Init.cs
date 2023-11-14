@@ -59,7 +59,7 @@ namespace TeamProjectMVC.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     Type = table.Column<string>(type: "text", nullable: true),
                     TableName = table.Column<string>(type: "text", nullable: true),
@@ -200,8 +200,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "c0e1a01c-c166-4e04-934a-d1722a8fe348", null, "ADMIN", "ADMIN" },
-                    { "d1597525-e2fa-47d2-8dbf-5a84c7f56dea", null, "USER", "USER" }
+                    { "11c7cdc0-aa24-40cc-b014-9e9b1e16a5e9", null, "ADMIN", "ADMIN" },
+                    { "a80185b7-a6f1-4319-a383-d6d7a373a625", null, "USER", "USER" }
                 });
 
             migrationBuilder.InsertData(

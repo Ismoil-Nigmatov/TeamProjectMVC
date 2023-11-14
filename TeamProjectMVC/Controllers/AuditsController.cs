@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TeamProjectMVC.Services;
 
@@ -23,6 +24,17 @@ namespace TeamProjectMVC.Controllers
              var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
              var auditLogs = JsonConvert.DeserializeObject<IEnumerable<Models.Audit>>(auditLogsAsJson);
             return View("Index" , auditLogs);
+        }
+
+        [HttpPost]
+        public async Task<ViewResult> FilterAuditLog(DateTime? startDate, DateTime? endDate)
+        {
+            startDate ??= DateTime.MinValue;
+            endDate ??= DateTime.MaxValue;
+
+            var filteredAuditLogs = await _auditLogService.Filter(startDate, endDate);
+
+            return View("Index", filteredAuditLogs);
         }
     }
 }

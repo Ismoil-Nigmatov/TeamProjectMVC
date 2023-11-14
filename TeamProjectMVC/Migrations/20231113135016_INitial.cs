@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TeamProjectMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class INitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,6 +60,7 @@ namespace TeamProjectMVC.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
+                    UserName = table.Column<string>(type: "text", nullable: true),
                     Type = table.Column<string>(type: "text", nullable: true),
                     TableName = table.Column<string>(type: "text", nullable: true),
                     DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -199,8 +200,18 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "042fc788-0eeb-47c4-8c45-7079973fa0ff", null, "ADMIN", "ADMIN" },
-                    { "8e39c837-bbe9-4879-9770-447d75b0de32", null, "USER", "USER" }
+                    { "405979f1-3fe7-441c-bad3-900c5f2dbab0", null, "USER", "USER" },
+                    { "487bb523-cd81-4b54-97ea-a5440a47fee1", null, "ADMIN", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Name", "Price", "Quantity", "ToTalPrice" },
+                values: new object[,]
+                {
+                    { "1", "HDD 1TB", 74.090000000000003, 55, 411569.95000000001 },
+                    { "2", "HDD SSD 512GB", 190.99000000000001, 102, 1967578.98 },
+                    { "3", "RAM DDR4 16GB", 80.319999999999993, 47, 38127904.0 }
                 });
 
             migrationBuilder.CreateIndex(

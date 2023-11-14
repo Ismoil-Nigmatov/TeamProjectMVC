@@ -50,13 +50,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "042fc788-0eeb-47c4-8c45-7079973fa0ff",
+                            Id = "487bb523-cd81-4b54-97ea-a5440a47fee1",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8e39c837-bbe9-4879-9770-447d75b0de32",
+                            Id = "405979f1-3fe7-441c-bad3-900c5f2dbab0",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -188,6 +188,32 @@ namespace TeamProjectMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "HDD 1TB",
+                            Price = 74.090000000000003,
+                            Quantity = 55,
+                            ToTalPrice = 411569.95000000001
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "HDD SSD 512GB",
+                            Price = 190.99000000000001,
+                            Quantity = 102,
+                            ToTalPrice = 1967578.98
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "RAM DDR4 16GB",
+                            Price = 80.319999999999993,
+                            Quantity = 47,
+                            ToTalPrice = 38127904.0
+                        });
                 });
 
             modelBuilder.Entity("TeamProjectMVC.Entity.User", b =>
@@ -285,6 +311,9 @@ namespace TeamProjectMVC.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

@@ -8,13 +8,14 @@
 
 
 <div class="container">
+    <a class="btn btn-warning"  asp-controller="Product" asp-action="Product">Return</a>
     <div class="row">
         <div class="col-md-12">
             <table class="table border-1 table-striped">
                 <thead class="thead-success">
                     <tr>
                         <th class="text-white">Id</th>
-                        @*<th>UserId</th>*@
+                        <th>User</th>
                         <th class="text-white">Type</th>
                         <th class="text-white">Table Name</th>
                         <th class="text-white">Date Time</th>
@@ -28,7 +29,7 @@
                     {
                         <tr>
                             <td class="text-white">@Html.DisplayFor(modelItem => item.Id) </td>
-                            @*<td> @Html.DisplayFor(modelItem => item.UserId)</td>*@
+                            <td class="text-white"> @Html.DisplayFor(modelItem => item.UserName)</td>
                             <td class="text-white"> @Html.DisplayFor(modelItem => item.Type)</td>
                             <td class="text-white"> @Html.DisplayFor(modelItem => item.TableName)</td>
                             <td class="text-white"> @Html.DisplayFor(modelItem => item.DateTime)</td>

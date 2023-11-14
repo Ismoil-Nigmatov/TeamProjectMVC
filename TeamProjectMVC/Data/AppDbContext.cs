@@ -27,6 +27,12 @@ namespace TeamProjectMVC.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration<IdentityRole>(new RoleConfiguration(Services));
+            builder.Entity<Product>().HasData(
+                
+           new Product { Id="1", Name="HDD 1TB",  Quantity=55, Price=74.09, ToTalPrice=411569.95 },
+           new Product { Id = "2", Name = "HDD SSD 512GB", Quantity = 102, Price = 190.99, ToTalPrice =1967578.98 },
+           new Product { Id = "3", Name = "RAM DDR4 16GB", Quantity = 47, Price = 80.32, ToTalPrice =38127904 }
+                );
         }
 
         //  /********************************** AUDIT********************************************
@@ -49,7 +55,9 @@ namespace TeamProjectMVC.Data
                     continue;
                 var auditEntry = new AuditEntry(entry);
                 auditEntry.TableName = entry.Entity.GetType().Name;
+                auditEntry.UserName = entry.Property("UserName").CurrentValue?.ToString();
                 auditEntry.UserId = userId;
+             
                 auditEntries.Add(auditEntry);
                 foreach (var property in entry.Properties)
                 {

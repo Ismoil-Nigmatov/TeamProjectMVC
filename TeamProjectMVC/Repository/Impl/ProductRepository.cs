@@ -41,7 +41,7 @@ namespace TeamProjectMVC.Repository.Impl
         }
 
 
-        public async Task Update(string userId, string id, ProductDTO productDto)
+        public async Task Update(string userId, string id,  ProductDTO productDto)
         {
             var vat = _configuration["Vat"]!;
 

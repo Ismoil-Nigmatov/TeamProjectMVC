@@ -21,20 +21,33 @@ namespace TeamProjectMVC.Data
 
                 //Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<User>>();
-                string adminUserEmail = "admin@gmail.com";
-
+                string adminUserEmail = "admin1@gmail.com";
+                string adminUserEmail2 = "admin2@gmail.com";
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
                 if (adminUser == null)
                 {
                     var newAdminUser = new User()
                     {
-                        UserName = "app-admin",
+                        UserName = "Admin_1",
                         Email = adminUserEmail,
                         EmailConfirmed = true,
 
                     };
-                    await userManager.CreateAsync(newAdminUser, "Admin@1234?");
+                    var newAdminUser2 = new User()
+                    {
+                        UserName = "Admin_2",
+                        Email = adminUserEmail2,
+                        EmailConfirmed = true,
+
+                    };
+                    await userManager.CreateAsync(newAdminUser, "Admin1@1234?");
                     await userManager.AddToRoleAsync(newAdminUser, (ERole.ADMIN).ToString());
+                    //   2
+
+                    await userManager.CreateAsync(newAdminUser2, "Admin2@1234?");
+                    await userManager.AddToRoleAsync(newAdminUser2, (ERole.ADMIN).ToString());
+
+
                 }
 
                 string appUserEmail = "user@gmail.com";

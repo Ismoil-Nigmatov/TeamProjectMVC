@@ -10,7 +10,7 @@ namespace Test
         public void CalculateTotalPrice_Should_ReturnCorrectTotalPrice()
         {
             var quantity = 5;
-            var price = 10.0;
+            var price = 10.0; 
             var vat = "0.2";
 
             var configuration = new Mock<IConfiguration>();

@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Security.Claims;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Models;
 
@@ -11,23 +8,17 @@ namespace TeamProjectMVC.Data
 {
     public class AppDbContext :  IdentityDbContext<User>
     {
-
-        //private readonly UserManager _userManager;
-       
         public AppDbContext(DbContextOptions<AppDbContext> options,
-             IServiceProvider services ) : base(options)
+            IServiceProvider services) : base(options)
         {
-            this.Services = services;
-          
-            //_userManager = userManager;
-           
+            Services = services;
         }
 
         public DbSet<Product> Products { get; set; }  
         public IServiceProvider Services { get; set; }
         public DbSet<Audit> AuditLogs { get; set; }
 
-        //********************************************************************
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -42,7 +33,6 @@ namespace TeamProjectMVC.Data
 
         //  /********************************** AUDIT********************************************
 
-
         public virtual async Task<int> SaveChangesAsync(string userId, string userName)
         {
             OnBeforeSaveChanges(userId, userName);
@@ -50,11 +40,10 @@ namespace TeamProjectMVC.Data
             return result;
         }
 
-        private async void OnBeforeSaveChanges(string userId, string userName)
+        private void OnBeforeSaveChanges(string userId, string userName)
         {
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
-            //var user = await _userManager.FindByIdAsync(userId);
             foreach (var entry in ChangeTracker.Entries())
             {
                 if (entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
@@ -71,7 +60,7 @@ namespace TeamProjectMVC.Data
                     string propertyName = property.Metadata.Name;
                     if (property.Metadata.IsPrimaryKey())
                     {
-                        auditEntry.KeyValues[propertyName] = property.CurrentValue;
+                        auditEntry.KeyValues[propertyName] = property.CurrentValue!;
                         continue;
                     }
 
@@ -79,12 +68,12 @@ namespace TeamProjectMVC.Data
                     {
                         case EntityState.Added:
                             auditEntry.AuditType = Entity.Enums.AuditType.Create;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            auditEntry.NewValues[propertyName] = property.CurrentValue!;
                             break;
 
                         case EntityState.Deleted:
                             auditEntry.AuditType = Entity.Enums.AuditType.Delete;
-                            auditEntry.OldValues[propertyName] = property.OriginalValue;
+                            auditEntry.OldValues[propertyName] = property.OriginalValue!;
                             break;
 
                         case EntityState.Modified:
@@ -92,7 +81,7 @@ namespace TeamProjectMVC.Data
                             {
                                 auditEntry.ChangedColumns.Add(propertyName);
                                 auditEntry.AuditType = Entity.Enums.AuditType.Update;
-                                auditEntry.OldValues[propertyName] = property.OriginalValue;
+                                auditEntry.OldValues[propertyName] = property.OriginalValue!;
                                 if (property.CurrentValue != null)
                                     auditEntry.NewValues[propertyName] = property.CurrentValue;
                             }
@@ -105,8 +94,5 @@ namespace TeamProjectMVC.Data
                 AuditLogs.Add(auditEntry.ToAudit());
             }
         }
-        //  /********************************** AUDIT  ENDS ********************************************
-
     }
-
 }

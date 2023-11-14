@@ -1,26 +1,19 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-//using TeamProjectMVC.Repository;
 using TeamProjectMVC.Services;
 
 namespace TeamProjectMVC.Controllers
 {
-
-   // [Authorize(Roles ="ADMIN")]
     public class AuditsController : Controller
     {
 
         private readonly AuditLogService _auditLogService;
 
-        public AuditsController(AuditLogService auditLogService)
-        {
-            _auditLogService = auditLogService;
-        }
+        public AuditsController(AuditLogService auditLogService) => _auditLogService = auditLogService;
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View("AuditType");
         }
@@ -29,8 +22,19 @@ namespace TeamProjectMVC.Controllers
         public async Task<IActionResult> GetAuditTable()
         {
              var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
-             var auditLogs = JsonConvert.DeserializeObject<IEnumerable<TeamProjectMVC.Models.Audit>>(auditLogsAsJson);
+             var auditLogs = JsonConvert.DeserializeObject<IEnumerable<Models.Audit>>(auditLogsAsJson);
             return View("Index" , auditLogs);
+        }
+
+        [HttpPost]
+        public async Task<ViewResult> FilterAuditLog(DateTime? startDate, DateTime? endDate)
+        {
+            startDate ??= DateTime.MinValue;
+            endDate ??= DateTime.MaxValue;
+
+            var filteredAuditLogs = await _auditLogService.Filter(startDate, endDate);
+
+            return View("Index", filteredAuditLogs);
         }
     }
 }

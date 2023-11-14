@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TeamProjectMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class INitial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,7 @@ namespace TeamProjectMVC.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     Type = table.Column<string>(type: "text", nullable: true),
                     TableName = table.Column<string>(type: "text", nullable: true),
@@ -200,8 +200,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "405979f1-3fe7-441c-bad3-900c5f2dbab0", null, "USER", "USER" },
-                    { "487bb523-cd81-4b54-97ea-a5440a47fee1", null, "ADMIN", "ADMIN" }
+                    { "11c7cdc0-aa24-40cc-b014-9e9b1e16a5e9", null, "ADMIN", "ADMIN" },
+                    { "a80185b7-a6f1-4319-a383-d6d7a373a625", null, "USER", "USER" }
                 });
 
             migrationBuilder.InsertData(

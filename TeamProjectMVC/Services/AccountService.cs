@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using TeamProjectMVC.Entity;
 using TeamProjectMVC.Entity.Enums;
-using TeamProjectMVC.Models.LoginViewModel;
 using TeamProjectMVC.Models.RegisterViewModel;
 
 namespace TeamProjectMVC.Services
@@ -13,7 +12,7 @@ namespace TeamProjectMVC.Services
 
         public AccountService(UserManager<User> userManager) => _userManager = userManager;
 
-        public async Task<string> HandleModelStateErrors(ModelStateDictionary modelState, string defaultErrorMessage = "Validation failed.")
+        public  string HandleModelStateErrors(ModelStateDictionary modelState, string defaultErrorMessage = "Validation failed.")
         {
             if (modelState.IsValid) return "success";
 

@@ -78,5 +78,17 @@ namespace TeamProjectMVC.Repository.Impl
             return Task.FromResult((quantity * price) * (1 + Convert.ToDouble(vat)));
         }
 
+        public async Task<RoleProductDTO> RetrieveDto(string userId, string userName , string role)
+        {
+            RoleProductDTO roleProductDto = new RoleProductDTO
+            {
+                Id = userId,
+                Name = userName,
+                Role = role,
+                Products = await GetAll()
+            };
+
+            return roleProductDto;
+        }
     }
 }

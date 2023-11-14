@@ -22,16 +22,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddScoped<AuditLogService>();
-
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<AuditLogService>();
-
-builder.Services.AddScoped<AccountService>();
-builder.Services.AddHttpContextAccessor();
+//builder.Services.AddHttpContextAccessor();
 
 
 var configuration = new ConfigurationBuilder()
@@ -65,6 +58,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Account/Login";
     });
+
+
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<AuditLogService>();
+
 
 var app = builder.Build();
 

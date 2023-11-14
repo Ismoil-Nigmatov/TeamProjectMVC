@@ -11,11 +11,16 @@ namespace TeamProjectMVC.Data
 {
     public class AppDbContext :  IdentityDbContext<User>
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public AppDbContext(DbContextOptions<AppDbContext> options, IServiceProvider services, IHttpContextAccessor httpContextAccessor) : base(options)
+
+        //private readonly UserManager _userManager;
+       
+        public AppDbContext(DbContextOptions<AppDbContext> options,
+             IServiceProvider services ) : base(options)
         {
             this.Services = services;
-            _httpContextAccessor = httpContextAccessor;
+          
+            //_userManager = userManager;
+           
         }
 
         public DbSet<Product> Products { get; set; }  
@@ -38,24 +43,26 @@ namespace TeamProjectMVC.Data
         //  /********************************** AUDIT********************************************
 
 
-        public virtual async Task<int> SaveChangesAsync(string userId)
+        public virtual async Task<int> SaveChangesAsync(string userId, string userName)
         {
-            OnBeforeSaveChanges(userId);
+            OnBeforeSaveChanges(userId, userName);
             var result = await base.SaveChangesAsync();
             return result;
         }
 
-        private void OnBeforeSaveChanges(string userId)
+        private async void OnBeforeSaveChanges(string userId, string userName)
         {
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
+            //var user = await _userManager.FindByIdAsync(userId);
             foreach (var entry in ChangeTracker.Entries())
             {
                 if (entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
                 var auditEntry = new AuditEntry(entry);
                 auditEntry.TableName = entry.Entity.GetType().Name;
-                auditEntry.UserName = entry.Property("UserName").CurrentValue?.ToString();
+
+                auditEntry.UserName = userName;
                 auditEntry.UserId = userId;
              
                 auditEntries.Add(auditEntry);

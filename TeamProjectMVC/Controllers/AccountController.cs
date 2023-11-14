@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using TeamProjectMVC.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
 using TeamProjectMVC.Models.LoginViewModel;
 using TeamProjectMVC.Models.RegisterViewModel;
 using TeamProjectMVC.Services;
@@ -10,12 +8,10 @@ namespace TeamProjectMVC.Controllers
     public class AccountController : Controller
     {
         private readonly AccountService _accountService;
-        private readonly SignInManager<User> _signInManager;
 
 
-        public AccountController(SignInManager<User> signInManager, AccountService accountService)
+        public AccountController(AccountService accountService)
         {
-            _signInManager = signInManager;
             _accountService = accountService;
         }
 
@@ -83,7 +79,7 @@ namespace TeamProjectMVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
             return RedirectToAction("Login", "Account");
         }

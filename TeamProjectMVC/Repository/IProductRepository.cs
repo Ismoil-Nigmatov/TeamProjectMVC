@@ -11,6 +11,6 @@ namespace TeamProjectMVC.Repository
         Task Update(string userId , string userName, string id, ProductDTO productDto);
         Task Delete(string userId, string userName, string id);
         Task<double> CalculateTotalPrice(int quantity, double price);
-
+        Task<RoleProductDTO> RetrieveDto(string userId, string userName, string role);
     }
 }

@@ -1,7 +1,5 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
 using TeamProjectMVC.Data;
 
 namespace TeamProjectMVC.Services

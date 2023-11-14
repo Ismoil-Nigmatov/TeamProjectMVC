@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TeamProjectMVC.Data;
 using TeamProjectMVC.Models;
+using TeamProjectMVC.Services;
 
 namespace TeamProjectMVC.Controllers
 {
@@ -9,15 +10,28 @@ namespace TeamProjectMVC.Controllers
     [ApiController]
     public class AuditsWebApiController : ControllerBase
     {
-        private readonly AppDbContext _context;
 
-        public AuditsWebApiController(AppDbContext context) => _context = context;
+        private readonly AuditLogService _auditLogService;
 
+        public AuditsWebApiController(AuditLogService auditLogService) => _auditLogService = auditLogService;
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Audit>>> GetAudits()
+        public async Task<ActionResult<IEnumerable<Audit>>> GetAudits(DateTime? startDate = null, DateTime? endDate = null)
         {
-            var audits = await _context.AuditLogs.ToListAsync();
+            if (!startDate.HasValue && !endDate.HasValue)
+            {
+                return Ok(await _auditLogService.GetAuditLogs());
+            }
+            if (startDate.HasValue && !endDate.HasValue)
+            {
+                endDate = DateTime.MaxValue;
+            }
+            if (!startDate.HasValue && endDate.HasValue)
+            {
+                startDate = DateTime.MinValue;
+            }
+
+            var audits = await _auditLogService.Filter(startDate, endDate);
             return Ok(audits);
         }
     }

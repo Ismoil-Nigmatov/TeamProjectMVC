@@ -14,10 +14,10 @@ namespace TeamProjectMVC.Services
             _dbContext = dbContext;
         }
 
-        public async Task<string> GetAuditLogsAsJsonAsync()
+        public async Task<List<Audit>> GetAuditLogs()
         {
             var auditLogs = await _dbContext.AuditLogs.ToListAsync();
-            return JsonConvert.SerializeObject(auditLogs);
+            return auditLogs;
         }
 
         public async Task<List<Audit>> Filter(DateTime? startDate, DateTime? endDate)

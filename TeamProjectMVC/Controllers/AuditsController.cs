@@ -21,8 +21,7 @@ namespace TeamProjectMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAuditTable()
         {
-             var auditLogsAsJson = await _auditLogService.GetAuditLogsAsJsonAsync();
-             var auditLogs = JsonConvert.DeserializeObject<IEnumerable<Models.Audit>>(auditLogsAsJson);
+             var auditLogs = await _auditLogService.GetAuditLogs();
             return View("Index" , auditLogs);
         }
 

@@ -27,7 +27,7 @@ namespace TeamProjectMVC.Repository.Impl
             return product ?? throw new BadHttpRequestException("Product not found.");
         }
 
-        public async Task Add(string userId ,ProductDTO productDto)
+        public async Task Add(string userId ,string userName, ProductDTO productDto)
         {
             var product = new Product
             {
@@ -37,11 +37,11 @@ namespace TeamProjectMVC.Repository.Impl
                 ToTalPrice = await CalculateTotalPrice(productDto.Quantity, productDto.Price)
             };
             _context.Products.Add(product);
-            await _context.SaveChangesAsync(userId);
+            await _context.SaveChangesAsync(userId, userName);
         }
 
 
-        public async Task Update(string userId, string id,  ProductDTO productDto)
+        public async Task Update(string userId, string userName, string id,  ProductDTO productDto)
         {
             var vat = _configuration["Vat"]!;
 
@@ -53,7 +53,7 @@ namespace TeamProjectMVC.Repository.Impl
                 product.Quantity = productDto.Quantity;
                 product.ToTalPrice = (productDto.Quantity * productDto.Price) * (1 + Convert.ToDouble(vat));
                 _context.Entry(product).State = EntityState.Modified;
-                await _context.SaveChangesAsync(userId);
+                await _context.SaveChangesAsync(userId, userName);
             }
             else
             {
@@ -61,13 +61,13 @@ namespace TeamProjectMVC.Repository.Impl
             }
         }
 
-        public async Task Delete(string userId, string id)
+        public async Task Delete(string userId, string userName, string id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product is not null)
             {
                 _context.Products.Remove(product);
-                await _context.SaveChangesAsync(userId);
+                await _context.SaveChangesAsync(userId, userName);
             }
         }
 

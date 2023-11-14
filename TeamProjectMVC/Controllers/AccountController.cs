@@ -38,7 +38,7 @@ namespace TeamProjectMVC.Controllers
                 return View();
             }
 
-            var (isAuthenticated, userRole, userId) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
+            var (isAuthenticated, userRole, userId, username) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
 
             if (!isAuthenticated)
             {
@@ -46,7 +46,7 @@ namespace TeamProjectMVC.Controllers
                 return View();
             }
 
-            return RedirectToAction("Product", "Product" , new {role = userRole , id = userId});
+            return RedirectToAction("Product", "Product" , new {role = userRole , id = userId, userName = username});
         }
 
         [HttpGet]

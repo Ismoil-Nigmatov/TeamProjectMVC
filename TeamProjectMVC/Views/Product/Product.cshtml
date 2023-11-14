@@ -32,6 +32,7 @@
                                 Please enter a valid price. Allowed characters: numbers and dot for decimals.
                             </div>
                             <input type="hidden" name="userId" value="@Model.Id" />
+                            <input type="hidden" name="userName" value="@Model.Name" />
                             <input type="hidden" name="role" value="@Model.Role" />
                             <input oninput="validateInput(this, 'titleAlert')" onfocus="hideValidationAlert('titleAlert')" value="" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required />
                             <input oninput="validateQuantity(this, 'quantityAlert')" onfocus="hideValidationAlert('quantityAlert')" type="text" value="" placeholder="Quantity" name="Quantity" class="form-control w-100 my-3 px-3" required />
@@ -63,7 +64,7 @@
                             @if (Model != null && Model.Role != "USER")
                             {
                                 <th>Action</th>
-                            }
+                            }                                                            
                         </tr>
                     </thead>
                     <tbody>
@@ -100,6 +101,7 @@
                                                                 Please enter a valid price. Allowed characters: numbers and dot for decimals.
                                                             </div>
                                                             <input type="hidden" name="userId" value="@Model.Id" />
+                                                            <input type="hidden" name="userName" value="@Model.Name" />
                                                             <input type="hidden" name="role" value="@Model.Role" />
                                                             <input type="hidden" name="id" value="@iteam.Id" />
                                                             <input oninput="validateInput(this, 'titleUpdateAlert')" onfocus="hideValidationAlert('titleUpdateAlert')" value="@iteam.Name" placeholder="Title" name="Name" class="form-control w-100 my-3 px-3" required />
@@ -129,6 +131,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <input value="@Model.Id" name="userId" type="hidden" />
+                                                                    <input type="hidden" name="userName" value="@Model.Name" />
                                                                     <input value="@Model.Role" name="role" type="hidden" />
                                                                     <input value="@iteam.Id" name="Id" type="hidden" />
                                                                     <button type="submit" asp-action="Delete" asp-controller="Product" class="w-100  btn btn-outline-danger"> Confirm </button>

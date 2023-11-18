@@ -7,10 +7,14 @@
 <div class="centered-div">
     <button class="bg-warning" onclick="redirectToSwagger()">Swagger</button>
     <button class="bg-warning" onclick="redirectToAuditTable()">TableFormat</button>
+    <button class="bg-warning" onclick="redirectToProduct()">Back</button>
 </div>
 <script>
     function redirectToAuditTable() {
         window.location.href = '@Url.Action("GetAuditTable", "Audits")';
+    }
+    function redirectToProduct() {
+        window.location.href = '@Url.Action("Product", "Product")';
     }
 </script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

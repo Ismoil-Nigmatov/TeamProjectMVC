@@ -157,7 +157,10 @@ body {
     padding: 10px;
     border-radius: 8px;
 }
-
-form::-webkit-scrollbar {
-    display: none;
+.custom-overflow{
+    width: 90vw;
+    height:90vh;
+}
+.custom-overflow::-webkit-scrollbar{
+    display:none;
 }

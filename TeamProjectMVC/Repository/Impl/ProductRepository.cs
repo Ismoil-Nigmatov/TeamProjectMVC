@@ -71,7 +71,7 @@ namespace TeamProjectMVC.Repository.Impl
             }
         }
 
-        public Task<double> CalculateTotalPrice(int quantity, double price)
+        public Task<double> CalculateTotalPrice(ulong quantity, double price)
         {
             var vat = _configuration["Vat"]!;
 
@@ -87,6 +87,8 @@ namespace TeamProjectMVC.Repository.Impl
                 Role = role,
                 Products = await GetAll()
             };
+
+            roleProductDto.Products = roleProductDto.Products.OrderBy(p => p.Id).ToList();
 
             return roleProductDto;
         }

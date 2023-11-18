@@ -21,7 +21,17 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/AuditLog"
+                    "$ref": "#/components/schemas/AuditLog",
+                    "properties": {
+                      "endDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "minimum": {
+                          "$ref": "#/components/schemas/startDate",
+                          "description": "End date must be after start date."
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -47,6 +57,11 @@
             "format": "date-time"
           }
         }
+      },
+      "startDate": {
+        "type": "string",
+        "format": "date-time"
       }
     }
   }
+}

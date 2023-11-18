@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using TeamProjectMVC.Entity;
 using TeamProjectMVC.Models.LoginViewModel;
 using TeamProjectMVC.Models.RegisterViewModel;
 using TeamProjectMVC.Services;
@@ -8,11 +10,13 @@ namespace TeamProjectMVC.Controllers
     public class AccountController : Controller
     {
         private readonly AccountService _accountService;
+        private readonly SignInManager<User> _signInManager;
 
 
-        public AccountController(AccountService accountService)
+        public AccountController(AccountService accountService, SignInManager<User> signInManager)
         {
             _accountService = accountService;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -34,7 +38,7 @@ namespace TeamProjectMVC.Controllers
                 return View();
             }
 
-            var (isAuthenticated, userRole, userId, username) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
+            var (isAuthenticated, user) = await _accountService.CheckUserAsync(loginViewModel.Email, loginViewModel.Password);
 
             if (!isAuthenticated)
             {
@@ -42,7 +46,8 @@ namespace TeamProjectMVC.Controllers
                 return View();
             }
 
-            return RedirectToAction("Product", "Product" , new {role = userRole , id = userId, userName = username});
+            await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+            return RedirectToAction("Product", "Product");
         }
 
         [HttpGet]
@@ -79,8 +84,9 @@ namespace TeamProjectMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Logout()
+        public async Task<RedirectToActionResult> Logout()
         {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
     }

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TeamProjectMVC.Services;
 
 namespace TeamProjectMVC.Controllers
 {
+    [Authorize(Roles = "ADMIN")]
     public class AuditsController : Controller
     {
 

@@ -24,17 +24,17 @@ namespace TeamProjectMVC.Services
             return errorMessages.Count > 0 ? errorMessages[0] : defaultErrorMessage;
         }
 
-        public async Task<(bool IsAuthenticated, string UserRole, string UserId, string UserName)> CheckUserAsync(string email,  string password)
+        public async Task<(bool IsAuthenticated, User user)> CheckUserAsync(string email,  string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user != null && await _userManager.CheckPasswordAsync(user, password))
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                return (true, roles.FirstOrDefault(), user.Id, user.UserName)!;
+                return (true, user)!;
             }
 
-            return (false, null, null, null)!;
+            return (false, null)!;
         }
 
         public async Task<bool> RegisterUser(RegisterViewModel model)

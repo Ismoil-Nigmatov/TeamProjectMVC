@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -41,7 +42,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
         options.Password.RequireUppercase = false;
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireDigit = false;
-        options.SignIn.RequireConfirmedAccount = true;
+        options.SignIn.RequireConfirmedAccount = false;
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -52,11 +53,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging();
 });
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
     });
 
 
@@ -86,12 +87,29 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-app.UseSwagger();
-
-app.UseSwaggerUI(c =>
+app.Use(async (context, next) =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TeamProjectMVC API");
+    if (context.Request.Path.StartsWithSegments("/swagger"))
+    {
+        if (context.User.Identity.IsAuthenticated)
+        {
+            if (!context.User.IsInRole("ADMIN"))
+            {
+                context.Response.StatusCode = 403;
+                return;
+            }
+        }
+        else
+        {
+            context.Response.Redirect("/Account/Login");
+            return;
+        }
+    }
+    await next.Invoke();
 });
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");

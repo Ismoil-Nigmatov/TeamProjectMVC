@@ -42,7 +42,7 @@ namespace TeamProjectMVC.Data
 
         private void OnBeforeSaveChanges(string userId, string userName)
         {
-            ChangeTracker.DetectChanges();
+            ChangeTracker.DetectChanges();  
             var auditEntries = new List<AuditEntry>();
             foreach (var entry in ChangeTracker.Entries())
             {

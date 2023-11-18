@@ -12,7 +12,7 @@ using TeamProjectMVC.Data;
 namespace TeamProjectMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231114065950_Init")]
+    [Migration("20231115072028_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,13 +53,13 @@ namespace TeamProjectMVC.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "11c7cdc0-aa24-40cc-b014-9e9b1e16a5e9",
+                            Id = "f0b1f79d-c096-4834-b477-fe0eb42cb08f",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a80185b7-a6f1-4319-a383-d6d7a373a625",
+                            Id = "1d457d19-4b91-4fc9-b76b-0018cef80362",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -182,8 +182,8 @@ namespace TeamProjectMVC.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric(20,0)");
 
                     b.Property<double>("ToTalPrice")
                         .HasColumnType("double precision");
@@ -198,7 +198,7 @@ namespace TeamProjectMVC.Migrations
                             Id = "1",
                             Name = "HDD 1TB",
                             Price = 74.090000000000003,
-                            Quantity = 55,
+                            Quantity = 55m,
                             ToTalPrice = 411569.95000000001
                         },
                         new
@@ -206,7 +206,7 @@ namespace TeamProjectMVC.Migrations
                             Id = "2",
                             Name = "HDD SSD 512GB",
                             Price = 190.99000000000001,
-                            Quantity = 102,
+                            Quantity = 102m,
                             ToTalPrice = 1967578.98
                         },
                         new
@@ -214,7 +214,7 @@ namespace TeamProjectMVC.Migrations
                             Id = "3",
                             Name = "RAM DDR4 16GB",
                             Price = 80.319999999999993,
-                            Quantity = 47,
+                            Quantity = 47m,
                             ToTalPrice = 38127904.0
                         });
                 });

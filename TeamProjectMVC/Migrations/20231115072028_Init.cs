@@ -80,7 +80,7 @@ namespace TeamProjectMVC.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     ToTalPrice = table.Column<double>(type: "double precision", nullable: false)
                 },
@@ -200,8 +200,8 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "11c7cdc0-aa24-40cc-b014-9e9b1e16a5e9", null, "ADMIN", "ADMIN" },
-                    { "a80185b7-a6f1-4319-a383-d6d7a373a625", null, "USER", "USER" }
+                    { "1d457d19-4b91-4fc9-b76b-0018cef80362", null, "USER", "USER" },
+                    { "f0b1f79d-c096-4834-b477-fe0eb42cb08f", null, "ADMIN", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -209,9 +209,9 @@ namespace TeamProjectMVC.Migrations
                 columns: new[] { "Id", "Name", "Price", "Quantity", "ToTalPrice" },
                 values: new object[,]
                 {
-                    { "1", "HDD 1TB", 74.090000000000003, 55, 411569.95000000001 },
-                    { "2", "HDD SSD 512GB", 190.99000000000001, 102, 1967578.98 },
-                    { "3", "RAM DDR4 16GB", 80.319999999999993, 47, 38127904.0 }
+                    { "1", "HDD 1TB", 74.090000000000003, 55m, 411569.95000000001 },
+                    { "2", "HDD SSD 512GB", 190.99000000000001, 102m, 1967578.98 },
+                    { "3", "RAM DDR4 16GB", 80.319999999999993, 47m, 38127904.0 }
                 });
 
             migrationBuilder.CreateIndex(

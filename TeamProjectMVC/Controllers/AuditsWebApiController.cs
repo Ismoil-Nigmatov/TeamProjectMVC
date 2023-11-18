@@ -32,7 +32,7 @@ namespace TeamProjectMVC.Controllers
                 bool step =  endDate.Value < startDate.Value;
                 if (step)
                 {
-                    return BadRequest("EndDate must be after startDate");
+                    return BadRequest("EndDate must be after StartDate");
                 }
             }
 
